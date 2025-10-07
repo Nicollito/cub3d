@@ -14,15 +14,18 @@ LIB = libft/libft.a
 CFLAGS_DEBUG = -g3 -Wuninitialized -fno-inline -O0
 DEBUG_MODE =
 #-------------------------------------SRC-------------------------------------#
-SRC 		= 										\
+SRC 			= 										\
 						src
-SRC_DIR 	=										\
-						error						\
-						main
-error_SRCS	=										\
+SRC_DIR 		=										\
+						error							\
+						main							\
+						parsing
+error_SRCS		=										\
 						error.c
-main_SRCS	=										\
+main_SRCS		=										\
 						main.c
+parsing_SRCS	=										\
+						parsing.c
 SRCS =	$(foreach dir,$(SRC_DIR), $(addprefix $(SRC)/$(dir)/,$($(dir)_SRCS)))
 #-----------------------------------OBJECTS-----------------------------------#
 OBJ_DIR = 											\
@@ -35,9 +38,12 @@ DEPS = $(patsubst $(SRC)/%.c, $(DEPS_DIR)/%.d, $(SRCS))
 INCLUDE				= 								\
 						include
 HEADER_DIR			=								\
-						cube
+						cube						\
+						parsing
 cube_HDR			= 								\
 						cube.h
+parsing_HDR			=								\
+						parsing.h
 HEADER = 	$(foreach dir,$(HEADER_DIR), $(addprefix $(INCLUDE)/$(dir)/,$($(dir)_HDR)))
 #------------------------------------UTILS------------------------------------#
 SRCS_LIB = $(shell make -s -C libft print_src)
