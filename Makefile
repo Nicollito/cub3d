@@ -7,9 +7,10 @@ CC = cc
 CFLAGS = -Werror -Wextra -Wall
 CFLAGS += 										\
 					-Ilibft						\
+					-Iinclude/error				\
 					-Iinclude/cube				\
-					-Iinclude/parsing			\
-					-Iinclude/error
+					-Iinclude/init				\
+					-Iinclude/parsing
 DFLAGS = -MMD -MF
 LIB = libft/libft.a
 #------------------------------------DEBUG------------------------------------#
@@ -26,6 +27,7 @@ SRC_DIR 		=										\
 error_SRCS		=										\
 						error.c
 init_SRCS		=										\
+						gnl.c							\
 						init.c
 main_SRCS		=										\
 						main.c
