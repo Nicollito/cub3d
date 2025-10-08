@@ -6,13 +6,16 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
 CFLAGS += 										\
+					-Iminilibx-linux			\
 					-Ilibft						\
 					-Iinclude/error				\
 					-Iinclude/cube				\
 					-Iinclude/init				\
 					-Iinclude/parsing
 DFLAGS = -MMD -MF
+LDFLAGS = -Lmlx-linux -Lmlx -Imlx -L/usr/lib -lX11 -lXext -lm -lz
 LIB = libft/libft.a
+MLX = minilibx-linux/libmlx.a
 #------------------------------------DEBUG------------------------------------#
 CFLAGS_DEBUG = -g3 -Wuninitialized -fno-inline -O0
 DEBUG_MODE =
@@ -27,7 +30,6 @@ SRC_DIR 		=										\
 error_SRCS		=										\
 						error.c
 init_SRCS		=										\
-						gnl.c							\
 						init.c
 main_SRCS		=										\
 						main.c
@@ -84,13 +86,17 @@ $(OBJ_DIR)/%.o : $(SRC)/%.c Makefile
 	@$(CC) $(CFLAGS) $(DFLAGS) $(DEPS_DIR)/$*.d -c $< -o $@
 	
 
-$(NAME) : $(OBJS) $(LIB)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(LFLAGS)
+$(NAME) : $(OBJS) $(LIB) $(MLX)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB) $(MLX) $(LDFLAGS) -o $(NAME) $(LFLAGS)
 	@echo "🚀 Executable is ready to run."
 
 $(LIB) : $(addprefix libft/, $(SRCS_LIB) $(HEADER_LIB)) libft/Makefile
 	@echo "📦 Building libft..."
 	@$(MAKE) -C libft
+
+$(MLX) :
+	@echo "🎶📳 Appel MLX 📳🎶"
+	@$(MAKE) -s -C mlx-linux > /dev/null 2>&1
 
 -include $(DEPS)
 
@@ -107,6 +113,7 @@ fclean : clean
 ifndef DEBUG_MODE
 	@$(MAKE) fclean -C libft
 endif
+	@$(MAKE) clean -C mlx-linux > /dev/null 2>&1
 	@rm -rf $(NAME)
 	@echo "🧼 Full clean complete."
 

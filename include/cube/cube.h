@@ -1,11 +1,11 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-typedef struct allocation
+typedef struct xpm
 {
-	void			*content;
-	struct alloc	*next;
-}					t_alloc;
+	void	*image;
+	int		heig
+}
 
 typedef struct sprites
 {
