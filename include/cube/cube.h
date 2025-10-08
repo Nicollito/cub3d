@@ -31,8 +31,10 @@ typedef struct cube
 	t_sprites	sprites;
 }				t_cube;
 
-void    ft_perror(void);
-void    print_error(char *msg);
+/*---------------------parsing/---------------------*/
+
+// parsing.c
+
 void	parsing(int ac, char **av);
 
 #endif

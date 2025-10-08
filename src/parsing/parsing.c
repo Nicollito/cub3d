@@ -1,7 +1,7 @@
 #include "libft.h"
-#include "cube.h"
+#include "error.h"
 
-int	name_file(char *file)
+static int	name_file(char *file)
 {
 	char	*current;
 

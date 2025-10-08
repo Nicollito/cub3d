@@ -7,7 +7,9 @@ CC = cc
 CFLAGS = -Werror -Wextra -Wall
 CFLAGS += 										\
 					-Ilibft						\
-					-Iinclude/cube
+					-Iinclude/cube				\
+					-Iinclude/parsing			\
+					-Iinclude/error
 DFLAGS = -MMD -MF
 LIB = libft/libft.a
 #------------------------------------DEBUG------------------------------------#
@@ -18,10 +20,13 @@ SRC 			= 										\
 						src
 SRC_DIR 		=										\
 						error							\
+						init							\
 						main							\
 						parsing
 error_SRCS		=										\
 						error.c
+init_SRCS		=										\
+						init.c
 main_SRCS		=										\
 						main.c
 parsing_SRCS	=										\
@@ -39,9 +44,12 @@ INCLUDE				= 								\
 						include
 HEADER_DIR			=								\
 						cube						\
+						error						\
 						parsing
 cube_HDR			= 								\
 						cube.h
+error_HDR			=								\
+						error.h
 parsing_HDR			=								\
 						parsing.h
 HEADER = 	$(foreach dir,$(HEADER_DIR), $(addprefix $(INCLUDE)/$(dir)/,$($(dir)_HDR)))
