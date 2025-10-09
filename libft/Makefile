@@ -4,7 +4,7 @@ MAKEFLAGS += --no-print-directory
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -Wno-type-limits
 CFLAGS_DEBUG = -g3
 
 SRCS =	ft_isalpha.c \

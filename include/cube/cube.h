@@ -26,20 +26,23 @@ typedef struct character
 	int	orientation;
 }		t_char;
 
-typedef struct map_data
+typedef struct s_config
 {
-	char	**map;
-	char	*textures[4];
-	uint8_t *floor[3];
-	uint8_t *ceiling[3];
-}			t_map_data;
+	char		**map;
+	char		*text_no;
+	char		*text_so;
+	char		*text_ea;
+	char		*text_we;
+	uint8_t		*floor_color[3];
+	uint8_t		*ceiling_color[3];
+}				t_config;
 
 typedef struct cube
 {
 	void		*mlx;
 	t_char		character;
 	t_sprites	sprites;
-	t_map_data	map_data;
+	t_config	config;
 	char		**map;
 	char		**textures;
 }				t_cube;
