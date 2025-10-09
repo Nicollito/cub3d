@@ -3,14 +3,24 @@
 #include "get_next_line.h"
 #include "mlx.h"
 
-static void	fill_color(t_color *color)
+static void	fill_color(t_config config, t_color *ceiling, t_color *floor)
 {
-	
+	ceiling->alpha = 0;
+	ceiling->red = color.ceiling_color[0];
+	ceiling->green = color.ceiling_color[1];
+	ceiling->blue = color.ceiling_color[2];
+	floor->alpha = 0;
+	floor->red = color.floor_color[0];
+	floor->green = color.floor_color[1];
+	floor->blue = color.floor_color[2];
 }
 
-static void	*create_background(t_cube *cube)
+static void	*create_background(t_config config)
 {
-	
+	t_color	ceiling;
+	t_color	floor;
+
+	fill_color(config, &ceiling, &floor);
 }
 
 int	init_mlx(t_cube *game)
