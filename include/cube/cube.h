@@ -1,20 +1,21 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-typedef struct xpm
+typedef struct image
 {
-	void	*image;
-	int		heig
-}
+	int		height;
+	int		width;
+	void	*mlx_ptr;
+}			t_image;
 
 typedef struct sprites
 {
-	void	*wall_no;
-	void	*wall_so;
-	void	*wall_ea;
-	void	*wall_we;
-	void	*ceiling;
-	void	*floor;
+	t_image	wall_no;
+	t_image	wall_so;
+	t_image	wall_ea;
+	t_image	wall_we;
+	t_image	ceiling;
+	t_image	floor;
 }			t_sprites;
 
 typedef struct character
@@ -27,14 +28,9 @@ typedef struct character
 typedef struct cube
 {
 	void		*mlx;
+	void		*mlx_window;
 	t_char		character;
 	t_sprites	sprites;
 }				t_cube;
-
-/*---------------------parsing/---------------------*/
-
-// parsing.c
-
-void	parsing(int ac, char **av);
 
 #endif

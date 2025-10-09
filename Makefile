@@ -96,7 +96,7 @@ $(LIB) : $(addprefix libft/, $(SRCS_LIB) $(HEADER_LIB)) libft/Makefile
 
 $(MLX) :
 	@echo "🎶📳 Appel MLX 📳🎶"
-	@$(MAKE) -s -C mlx-linux > /dev/null 2>&1
+	@$(MAKE) -s -C minilibx-linux > /dev/null 2>&1
 
 -include $(DEPS)
 
