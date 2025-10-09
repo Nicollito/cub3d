@@ -1,10 +1,10 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-/*---------------------parsing/---------------------*/
+/* ----- LIBRARIES ----- */
+#include <fcntl.h>
+#include "cube.h"
 
-// parsing.c
-
-void	parsing(int ac, char **av);
+void	parsing(t_cube *cube, int ac, char **av);
 
 #endif
