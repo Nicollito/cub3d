@@ -1,4 +1,7 @@
-NO ./hello
-SO salut
-EA efjfdfs
-WE egfkdldlg
+EA ./map.cub
+NO ./map.cub
+F 12, 0, 12
+WE ./map.cub
+SO ./map.cub
+
+C 255,12,41

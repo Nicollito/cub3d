@@ -2,6 +2,7 @@
 # define CUBE_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct allocation
 {
@@ -26,15 +27,18 @@ typedef struct character
 	int	orientation;
 }		t_char;
 
+typedef struct s_color
+{
+	uint8_t rgb[3];
+	bool	is_set;
+}			t_color;
+
+
 typedef struct s_config
 {
 	char		**map;
-	char		*text_no;
-	char		*text_so;
-	char		*text_ea;
-	char		*text_we;
-	uint8_t		*floor_color[3];
-	uint8_t		*ceiling_color[3];
+	char		*textures[4];
+	t_color		color[2];
 }				t_config;
 
 typedef struct cube
