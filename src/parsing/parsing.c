@@ -26,20 +26,6 @@ int	is_color_line(char *line)
 	return (1);
 }
 
-int	is_map_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while(line && line[i])
-	{
-		if (line[i] != '1' || line[i] != ' ' || line[i] != '\t')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 int	line_is_empty(char *line)
 {
 	int	i;
@@ -54,6 +40,26 @@ int	line_is_empty(char *line)
 	return (0);
 }
 
+int	is_map_line(char *line)
+{
+	int	i;
+	int	is_line_map;
+
+	i = 0;
+	is_line_map = 0;
+	while (line && line[i])
+	{
+		if (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
+			is_line_map = 1;
+		else if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0); 
+		i++;
+	}
+	return (is_line_map);
+}
+
+
 void	parse_config(t_cube *cube, char *line)
 {
 	if (line_is_empty(line) == 0)
@@ -63,7 +69,10 @@ void	parse_config(t_cube *cube, char *line)
 	else if (is_color_line(line) == 0)
 		parse_color(cube, line);
 	else
+	{
 		ft_error(cube, "Invalid line in .cub file");
+		printf("%s\n", line);
+	}
 }
 
 void	check_all_values(t_cube *cube)

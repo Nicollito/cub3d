@@ -41,6 +41,12 @@ typedef struct s_config
 	t_color		color[2];
 }				t_config;
 
+typedef struct s_map
+{
+	char	**map;
+}			t_map;
+
+
 typedef struct cube
 {
 	void		*mlx;

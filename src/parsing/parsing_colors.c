@@ -60,10 +60,13 @@ void	parse_color(t_cube *cube, char *line)
 		if (str_isdigit(tmp_trimmed) == 0)
 			ft_error(cube, "Invalid RGB component: must be digits only");
 		value = ft_atoi(tmp_trimmed);
+		free(tmp_trimmed);
 		if (value < 0 || value > 255)
 			ft_error(cube, "RGB value out of range (0-255)");
 		cube->config.color[type].rgb[i] = value;
+		free(color[i]);
 		i++;
 	}
+	free(color);
 	cube->config.color[type].is_set = 1;
 }
