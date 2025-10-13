@@ -4,12 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct allocation
-{
-	void			*content;
-	struct alloc	*next;
-}					t_alloc;
-
 typedef struct sprites
 {
 	void	*wall_no;
@@ -32,7 +26,6 @@ typedef struct s_color
 	uint8_t rgb[3];
 	bool	is_set;
 }			t_color;
-
 
 typedef struct s_config
 {
