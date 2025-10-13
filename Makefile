@@ -34,7 +34,11 @@ init_SRCS		=										\
 main_SRCS		=										\
 						main.c
 parsing_SRCS	=										\
-						parsing.c
+						parsing.c						\
+						parsing_colors.c				\
+						parsing_filename.c				\
+						parsing_textures.c				\
+						parsing_map.c
 SRCS =	$(foreach dir,$(SRC_DIR), $(addprefix $(SRC)/$(dir)/,$($(dir)_SRCS)))
 #-----------------------------------OBJECTS-----------------------------------#
 OBJ_DIR = 											\

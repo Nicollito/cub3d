@@ -3,8 +3,51 @@
 
 /* ----- LIBRARIES ----- */
 #include <fcntl.h>
+#include <stdio.h>
 #include "cube.h"
+#include "libft.h"
+#include "get_next_line.h"
+#include "error.h"
 
-void	parsing(t_cube *cube, int ac, char **av);
+typedef enum e_color_type
+{
+	INVALID_COLOR = -1,
+	FLOOR,
+	CEILING
+}	t_color_type;
+
+typedef enum e_texture_type
+{
+	INVALID_TEXTURE = -1,
+	TEXT_NO,
+	TEXT_EA,
+	TEXT_SO,
+	TEXT_WE
+}	t_texture_type;
+
+/* ----- PARSING.C ----- */
+void	free_cube(t_cube *cube);
+int		is_texture_line(char *line);
+int		is_color_line(char *line);
+int		is_map_line(char *line);
+int		line_is_empty(char *line);
+void	parse_config(t_cube *cube, char *line);
+void	check_all_values(t_cube *cube);
+void	parsing(char **av);
+
+/* ----- PARSING_COLORS.C ----- */
+t_color_type	get_color_type(char *line);
+int				count_split(char **color);
+int				str_isdigit(char *str);
+void			parse_color(t_cube *cube, char *line);
+
+/* ----- PARSING_FILENAME.C ----- */
+int		name_file(char *file);
+void	check_file(t_cube *cube, char *file);
+
+/* ----- PARSING_TEXTURES.C ----- */
+t_texture_type get_texture_type(char *line);
+void	parse_texture(t_cube *cube, char *line);
+
 
 #endif
