@@ -3,37 +3,72 @@
 #include "get_next_line.h"
 #include "mlx.h"
 
-static void	fill_color(t_config config, t_color *ceiling, t_color *floor)
+static void	color_pixel(t_color color, t_img_data background, int offset)
 {
-	ceiling->alpha = 0;
-	ceiling->red = config.ceiling_color[0];
-	ceiling->green = config.ceiling_color[1];
-	ceiling->blue = config.ceiling_color[2];
-	floor->alpha = 0;
-	floor->red = config.floor_color[0];
-	floor->green = config.floor_color[1];
-	floor->blue = config.floor_color[2];
+	if (background.endian == 1)
+	{
+		background.mem[offset + 0] = 0xFF;
+		background.mem[offset + 1] = color.rgb[0];
+		background.mem[offset + 2] = color.rgb[1];
+		background.mem[offset + 3] = color.rgb[2];
+	}
+	else
+	{
+		background.mem[offset + 0] = color.rgb[2];
+		background.mem[offset + 1] = color.rgb[1];
+		background.mem[offset + 2] = color.rgb[0];
+		background.mem[offset + 3] = 0xFF;
+	}
 }
 
-static void	*create_background(t_config config)
+static void	write_background(t_color *color, t_img_data background)
 {
-	t_color	ceiling;
-	t_color	floor;
+	int				x;
+	int				y;
+	int				offset;
+	t_color_type	type;
 
-	fill_color(config, &ceiling, &floor);
+	y = 0;
+	type = CEILING;
+	while (y <= 1080)
+	{
+		x = 0;
+		while (x <= 1920)
+		{
+			offset = y * background.line_length + x
+				* (background.bits_per_pixel / 8);
+			color_pixel(color[type], background, offset);
+			++x;
+		}
+		if (y > 540)
+			type = FLOOR;
+		++y;
+	}
 }
 
-int	init_mlx(t_cube *game)
+static int	create_background(t_cube *cube)
 {
-	game->mlx = mlx_init();
-	if (!game->mlx)
+	t_img_data	background;
+
+	cube->sprites.background.mlx_ptr = mlx_new_image(cube->mlx, 1920, 1080);
+	if (!cube->sprites.background.mlx_ptr)
 		return (1);
-	// game->sprites.wall_no.mlx_ptr = mlx_xpm_file_to_image(game->mlx, /*path_image*/, game->sprites.wall_no.width, game->sprites.wall_no.height);
-	// game->sprites.wall_so.mlx_ptr = mlx_xpm_file_to_image(game->mlx, /*path_image*/, game->sprites.wall_so.width, game->sprites.wall_so.height);
-	// game->sprites.wall_ea.mlx_ptr = mlx_xpm_file_to_image(game->mlx, /*path_image*/, game->sprites.wall_ea.width, game->sprites.wall_ea.height);
-	// game->sprites.wall_we.mlx_ptr = mlx_xpm_file_to_image(game->mlx, /*path_image*/, game->sprites.wall_we.width, game->sprites.wall_we.height);
-	game->mlx_window = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
-	if (!game->mlx_window)
+	background.mem = mlx_get_data_addr(cube->sprites.background.mlx_ptr,
+			&background.bits_per_pixel, &background.line_length,
+			&background.endian);
+	write_background(cube->config.color, background);
+	return (0);
+}
+
+int	init_mlx(t_cube *cube)
+{
+	cube->mlx = mlx_init();
+	if (!cube->mlx)
+		return (1);
+	cube->mlx_window = mlx_new_window(cube->mlx, 1920, 1080, "cub3D");
+	if (!cube->mlx_window)
+		return (1);
+	if (create_background(cube))
 		return (1);
 	return (0);
 }

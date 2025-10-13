@@ -1,13 +1,13 @@
 #ifndef INIT_H
 # define INIT_H
 
-typedef struct color
+typedef struct image_data
 {
-	unsigned char	alpha;
-	unsigned char	blue;
-	unsigned char	green;
-	unsigned char	red;
-}					t_color;
+	char	*mem;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_img_data;
 
 /*---------------------init/---------------------*/
 

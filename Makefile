@@ -116,8 +116,8 @@ clean :
 fclean : clean
 ifndef DEBUG_MODE
 	@$(MAKE) fclean -C libft
+	@$(MAKE) clean -C minilibx-linux > /dev/null 2>&1
 endif
-	@$(MAKE) clean -C mlx-linux > /dev/null 2>&1
 	@rm -rf $(NAME)
 	@echo "🧼 Full clean complete."
 

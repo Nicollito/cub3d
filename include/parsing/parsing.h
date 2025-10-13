@@ -9,22 +9,6 @@
 #include "get_next_line.h"
 #include "error.h"
 
-typedef enum e_color_type
-{
-	INVALID_COLOR = -1,
-	FLOOR,
-	CEILING
-}	t_color_type;
-
-typedef enum e_texture_type
-{
-	INVALID_TEXTURE = -1,
-	TEXT_NO,
-	TEXT_EA,
-	TEXT_SO,
-	TEXT_WE
-}	t_texture_type;
-
 /* ----- PARSING.C ----- */
 void	free_cube(t_cube *cube);
 int		is_texture_line(char *line);
@@ -33,7 +17,7 @@ int		is_map_line(char *line);
 int		line_is_empty(char *line);
 void	parse_config(t_cube *cube, char *line);
 void	check_all_values(t_cube *cube);
-void	parsing(char **av);
+t_cube	*parsing(char **av);
 
 /* ----- PARSING_COLORS.C ----- */
 t_color_type	get_color_type(char *line);

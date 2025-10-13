@@ -90,7 +90,7 @@ void	check_all_values(t_cube *cube)
 		ft_error(cube, "Missing color");
 }
 
-void	parsing(char **av)
+t_cube	*parsing(char **av)
 {
 	t_cube	*cube;
 
@@ -101,4 +101,5 @@ void	parsing(char **av)
 	if (name_file(av[1]))
 		ft_error(cube, "Invalid name format");
 	check_file(cube, av[1]);
+	return (cube);
 }
