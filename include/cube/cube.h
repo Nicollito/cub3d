@@ -4,6 +4,11 @@
 # include <stdint.h>
 # include <stdbool.h>
 
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
+#define PI 3.1415926535
+#define FOV (60 * PI / 180)
+
 typedef enum e_texture_type
 {
 	INVALID_TEXTURE = -1,
@@ -29,19 +34,17 @@ typedef struct image
 
 typedef struct sprites
 {
-	t_image	wall_no;
-	t_image	wall_so;
-	t_image	wall_ea;
-	t_image	wall_we;
+	t_image	wall[4];
 	t_image	background;
 }			t_sprites;
 
 typedef struct character
 {
-	int	x;
-	int	y;
-	int	orientation;
-}		t_char;
+	double	x;
+	double	y;
+	double	orientation;
+	double	ray[WINDOW_WIDTH];
+}			t_char;
 
 typedef struct s_color
 {

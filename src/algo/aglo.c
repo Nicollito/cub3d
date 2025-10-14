@@ -1,0 +1,45 @@
+#include "cube.h"
+#include "algo.h"
+#include "libft.h"
+#include <math.h>
+
+static void	set_data(t_cube *cube, t_calc *data, double angle)
+{
+	data->step = 0.1;
+	data->ray_x = cube->character.x;
+	data->ray_y = cube->character.y;
+	data->ray_dir_x = cos(angle);
+	data->ray_dir_y = sin(angle);
+}
+
+static double	ray_len(t_cube *cube, t_calc data)
+{
+	double	res;
+
+	res = 0;
+	while (1)
+	{
+		data.ray_x += data.ray_dir_x * data.step;
+		data.ray_y += data.ray_dir_y * data.step;
+		res += data.step;
+		if (cube->map[(int)data.ray_y][(int)data.ray_x] == 1)
+			break ;
+	}
+	return (res);
+}
+
+void	raycasting(t_cube *cube)
+{
+	int		i;
+	double	angle;
+	t_calc	data;
+
+	i = -1;
+	ft_memset(&data, 0, sizeof(t_cube));
+	while (++i < WINDOW_WIDTH)
+	{
+		angle = cube->character.orientation - (FOV * 0.5) + (FOV * i / WINDOW_WIDTH);
+		set_data(cube, &data, angle);
+		cube->character.ray[i] = ray_len(cube, data);
+	}
+}

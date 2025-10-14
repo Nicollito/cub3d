@@ -14,6 +14,6 @@ int main(int ac, char **av)
 	}
 	cube = parsing(av);
 	init_mlx(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.background.mlx_ptr, 0, 0);
+	
 	mlx_loop(cube->mlx);
 }

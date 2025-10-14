@@ -30,17 +30,17 @@ static void	write_background(t_color *color, t_img_data background)
 
 	y = 0;
 	type = CEILING;
-	while (y <= 1080)
+	while (y <= WINDOW_HEIGHT)
 	{
 		x = 0;
-		while (x <= 1920)
+		while (x <= WINDOW_WIDTH)
 		{
 			offset = y * background.line_length + x
 				* (background.bits_per_pixel / 8);
 			color_pixel(color[type], background, offset);
 			++x;
 		}
-		if (y > 540)
+		if (y > WINDOW_HEIGHT / 2)
 			type = FLOOR;
 		++y;
 	}
@@ -50,7 +50,8 @@ static int	create_background(t_cube *cube)
 {
 	t_img_data	background;
 
-	cube->sprites.background.mlx_ptr = mlx_new_image(cube->mlx, 1920, 1080);
+	cube->sprites.background.mlx_ptr = mlx_new_image(cube->mlx,
+			WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!cube->sprites.background.mlx_ptr)
 		return (1);
 	background.mem = mlx_get_data_addr(cube->sprites.background.mlx_ptr,
@@ -60,15 +61,40 @@ static int	create_background(t_cube *cube)
 	return (0);
 }
 
+static int	set_sprites(t_cube *cube)
+{
+	cube->sprites.wall[TEXT_NO].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
+			cube->config.textures[TEXT_NO], &cube->sprites.wall[TEXT_NO].width,
+			&cube->sprites.wall[TEXT_NO].height);
+	cube->sprites.wall[TEXT_SO].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
+			cube->config.textures[TEXT_SO], &cube->sprites.wall[TEXT_SO].width,
+			&cube->sprites.wall[TEXT_SO].height);
+	cube->sprites.wall[TEXT_WE].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
+			cube->config.textures[TEXT_WE], &cube->sprites.wall[TEXT_WE].width,
+			&cube->sprites.wall[TEXT_WE].height);
+	cube->sprites.wall[TEXT_EA].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
+			cube->config.textures[TEXT_EA], &cube->sprites.wall[TEXT_EA].width,
+			&cube->sprites.wall[TEXT_EA].height);
+	if (!cube->sprites.wall[TEXT_NO].mlx_ptr
+		|| !cube->sprites.wall[TEXT_SO].mlx_ptr
+		|| !cube->sprites.wall[TEXT_WE].mlx_ptr
+		|| !cube->sprites.wall[TEXT_EA].mlx_ptr)
+		return (1);
+	return (0);
+}
+
 int	init_mlx(t_cube *cube)
 {
 	cube->mlx = mlx_init();
 	if (!cube->mlx)
 		return (1);
-	cube->mlx_window = mlx_new_window(cube->mlx, 1920, 1080, "cub3D");
+	cube->mlx_window = mlx_new_window(cube->mlx, WINDOW_WIDTH,
+			WINDOW_HEIGHT, "cub3D");
 	if (!cube->mlx_window)
 		return (1);
 	if (create_background(cube))
+		return (1);
+	if (set_sprites(cube))
 		return (1);
 	return (0);
 }

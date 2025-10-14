@@ -8,8 +8,9 @@ CFLAGS = -Werror -Wextra -Wall
 CFLAGS += 										\
 					-Iminilibx-linux			\
 					-Ilibft						\
-					-Iinclude/error				\
+					-Iinclude/algo				\
 					-Iinclude/cube				\
+					-Iinclude/error				\
 					-Iinclude/init				\
 					-Iinclude/parsing
 DFLAGS = -MMD -MF
@@ -23,10 +24,13 @@ DEBUG_MODE =
 SRC 			= 										\
 						src
 SRC_DIR 		=										\
+						algo							\
 						error							\
 						init							\
 						main							\
 						parsing
+algo_SRCS		=										\
+						algo.c
 error_SRCS		=										\
 						error.c
 init_SRCS		=										\
@@ -51,9 +55,12 @@ DEPS = $(patsubst $(SRC)/%.c, $(DEPS_DIR)/%.d, $(SRCS))
 INCLUDE				= 								\
 						include
 HEADER_DIR			=								\
+						algo						\
 						cube						\
 						error						\
 						parsing
+algo_HDR			=								\
+						algo.h
 cube_HDR			= 								\
 						cube.h
 error_HDR			=								\

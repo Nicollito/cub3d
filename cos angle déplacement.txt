@@ -1,0 +1,3 @@
+cos(angle) = déplacement horizontal x du rayon
+sin(angle) = déplacement vertical y du rayon
+angle du rayon = angle_joueur - (champ_de_vision / 2) + (champ_de_vision / nombre_de_rayons) * i
