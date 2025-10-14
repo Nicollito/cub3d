@@ -31,10 +31,12 @@ static double	ray_len(t_cube *cube, t_calc data)
 void	raycasting(t_cube *cube)
 {
 	int		i;
+	double	fov;
 	double	angle;
 	t_calc	data;
 
 	i = -1;
+	fov = (FOV * PI / 180);
 	ft_memset(&data, 0, sizeof(t_cube));
 	while (++i < WINDOW_WIDTH)
 	{

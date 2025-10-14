@@ -4,10 +4,10 @@
 # include <stdint.h>
 # include <stdbool.h>
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
-#define PI 3.1415926535
-#define FOV (60 * PI / 180)
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
+# define PI 3.1415926535
+# define FOV 60
 
 typedef enum e_texture_type
 {
