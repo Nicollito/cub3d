@@ -90,6 +90,8 @@ void	check_all_values(t_cube *cube)
 		ft_error(cube, "Missing color");
 }
 
+
+
 t_cube	*parsing(char **av)
 {
 	t_cube	*cube;

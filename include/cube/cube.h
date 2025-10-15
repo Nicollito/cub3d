@@ -54,15 +54,9 @@ typedef struct s_color
 
 typedef struct s_config
 {
-	char		**map;
 	char		*textures[4];
 	t_color		color[2];
 }				t_config;
-
-typedef struct s_map
-{
-	char	**map;
-}			t_map;
 
 typedef struct cube
 {
@@ -71,6 +65,8 @@ typedef struct cube
 	t_char		character;
 	t_sprites	sprites;
 	t_config	config;
+	int			y_max;
+	int			x_max;
 	char		**map;
 	char		**textures;
 }				t_cube;
