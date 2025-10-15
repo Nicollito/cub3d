@@ -25,6 +25,12 @@ typedef enum e_color_type
 	CEILING
 }	t_color_type;
 
+typedef enum e_image_layer
+{
+	BACKGROUND,
+	FOREGROUND,
+}	t_layer;
+
 typedef struct image
 {
 	int		height;
@@ -34,8 +40,8 @@ typedef struct image
 
 typedef struct sprites
 {
-	t_image	wall[4];
-	t_image	background;
+	t_image	text_wall[4];
+	t_image	image[2];
 }			t_sprites;
 
 typedef struct character
@@ -43,7 +49,6 @@ typedef struct character
 	double	x;
 	double	y;
 	double	orientation;
-	double	ray[WINDOW_WIDTH];
 }			t_char;
 
 typedef struct s_color
@@ -69,6 +74,8 @@ typedef struct cube
 	int			x_max;
 	char		**map;
 	char		**textures;
+	double		dist_proj;
+	double		fov;
 }				t_cube;
 
 #endif

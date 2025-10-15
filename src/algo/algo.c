@@ -22,7 +22,7 @@ static double	ray_len(t_cube *cube, t_calc data)
 		data.ray_x += data.ray_dir_x * data.step;
 		data.ray_y += data.ray_dir_y * data.step;
 		res += data.step;
-		if (cube->map[(int)data.ray_y][(int)data.ray_x] == 1)
+		if (cube->map[(int)data.ray_y][(int)data.ray_x] == '1')
 			break ;
 	}
 	return (res);
@@ -31,17 +31,18 @@ static double	ray_len(t_cube *cube, t_calc data)
 void	raycasting(t_cube *cube)
 {
 	int		i;
-	double	fov;
+	int		height;
+	double	len;
 	double	angle;
 	t_calc	data;
 
 	i = -1;
-	fov = (FOV * PI / 180);
 	ft_memset(&data, 0, sizeof(t_cube));
 	while (++i < WINDOW_WIDTH)
 	{
-		angle = cube->character.orientation - (FOV * 0.5) + (FOV * i / WINDOW_WIDTH);
+		angle = cube->character.orientation - (cube->fov * 0.5) + (cube->fov * i / WINDOW_WIDTH);
 		set_data(cube, &data, angle);
-		cube->character.ray[i] = ray_len(cube, data);
+		len = ray_len(cube, data);
+		height = 1 * cube->dist_proj / len;
 	}
 }
