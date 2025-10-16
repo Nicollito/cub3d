@@ -46,7 +46,10 @@ static void	set_opacity(t_color *color, t_img_data image)
 		{
 			offset = y * image.line_length + x
 				* (image.bits_per_pixel / 8);
-			color_pixel(&color[type], image, offset);
+			if (color)
+				color_pixel(&color[type], image, offset);
+			else
+				color_pixel(NULL, image, offset);
 			++x;
 		}
 		if (y > WINDOW_HEIGHT / 2)
@@ -71,8 +74,9 @@ static int	create_layers(t_cube *cube)
 	image[FOREGROUND].mem = mlx_get_data_addr(cube->sprites.image[FOREGROUND].mlx_ptr,
 			&image[FOREGROUND].bits_per_pixel, &image[FOREGROUND].line_length,
 			&image[FOREGROUND].endian);
-	set_opacity(cube->config.color, image[BACKGROUND]);
-	set_opacity(NULL, image[FOREGROUND]);
+	set_opacity(cube->config.color, image[FOREGROUND]);
+	// set_opacity(NULL, image[FOREGROUND]);
+	cube->image = image[FOREGROUND];
 	return (0);
 }
 
@@ -112,6 +116,6 @@ int	init_mlx(t_cube *cube)
 	if (set_sprites(cube))
 		return (1);
 	cube->fov = (FOV * PI / 180);
-	cube->dist_proj = (WINDOW_HEIGHT / 2) / ten(cube->fov / 2);
+	cube->dist_proj = (WINDOW_HEIGHT / 2) / tan(cube->fov / 2);
 	return (0);
 }

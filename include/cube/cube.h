@@ -63,6 +63,14 @@ typedef struct s_config
 	t_color		color[2];
 }				t_config;
 
+typedef struct image_data
+{
+	char	*mem;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_img_data;
+
 typedef struct cube
 {
 	void		*mlx;
@@ -70,6 +78,7 @@ typedef struct cube
 	t_char		character;
 	t_sprites	sprites;
 	t_config	config;
+	t_img_data	image;
 	int			y_max;
 	int			x_max;
 	char		**map;
@@ -77,5 +86,7 @@ typedef struct cube
 	double		dist_proj;
 	double		fov;
 }				t_cube;
+
+void	raycasting(t_cube *cube);
 
 #endif
