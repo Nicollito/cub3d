@@ -100,6 +100,7 @@ t_cube	*parsing(char **av)
 	if (!cube)
 		ft_error(cube, "Malloc failed");
 	*cube = (t_cube){0};
+	cube->character.orientation = -1;
 	if (name_file(av[1]))
 		ft_error(cube, "Invalid name format");
 	check_file(cube, av[1]);
