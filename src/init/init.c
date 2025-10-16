@@ -8,29 +8,19 @@ static void	color_pixel(t_color *color, t_img_data image, int offset)
 {
 	if (image.endian == 1)
 	{
-		image.mem[offset + 0] = 0x00;
-		if (color)
-		{
-			image.mem[offset + 0] = 0xFF;
-			image.mem[offset + 1] = color->rgb[0];
-			image.mem[offset + 2] = color->rgb[1];
-			image.mem[offset + 3] = color->rgb[2];
-		}
+		image.mem[offset + 1] = color->rgb[0];
+		image.mem[offset + 2] = color->rgb[1];
+		image.mem[offset + 3] = color->rgb[2];
 	}
 	else
 	{
-		image.mem[offset + 3] = 0x00;
-		if (color)
-		{
-			image.mem[offset + 0] = color->rgb[2];
-			image.mem[offset + 1] = color->rgb[1];
-			image.mem[offset + 2] = color->rgb[0];
-			image.mem[offset + 3] = 0xFF;
-		}
+		image.mem[offset + 0] = color->rgb[2];
+		image.mem[offset + 1] = color->rgb[1];
+		image.mem[offset + 2] = color->rgb[0];
 	}
 }
 
-static void	set_opacity(t_color *color, t_img_data image)
+void	set_backgound(t_color *color, t_img_data image)
 {
 	int				x;
 	int				y;
@@ -60,23 +50,17 @@ static void	set_opacity(t_color *color, t_img_data image)
 
 static int	create_layers(t_cube *cube)
 {
-	t_img_data	image[2];
+	t_img_data	image;
 
-	cube->sprites.image[BACKGROUND].mlx_ptr = mlx_new_image(cube->mlx,
+	cube->sprites.image.mlx_ptr = mlx_new_image(cube->mlx,
 			WINDOW_WIDTH, WINDOW_HEIGHT);
-	cube->sprites.image[FOREGROUND].mlx_ptr = mlx_new_image(cube->mlx,
-			WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!cube->sprites.image[BACKGROUND].mlx_ptr || !cube->sprites.image[FOREGROUND].mlx_ptr)
+	if (!cube->sprites.image.mlx_ptr)
 		return (1);
-	image[BACKGROUND].mem = mlx_get_data_addr(cube->sprites.image[BACKGROUND].mlx_ptr,
-			&image[BACKGROUND].bits_per_pixel, &image[BACKGROUND].line_length,
-			&image[BACKGROUND].endian);
-	image[FOREGROUND].mem = mlx_get_data_addr(cube->sprites.image[FOREGROUND].mlx_ptr,
-			&image[FOREGROUND].bits_per_pixel, &image[FOREGROUND].line_length,
-			&image[FOREGROUND].endian);
-	set_opacity(cube->config.color, image[FOREGROUND]);
-	// set_opacity(NULL, image[FOREGROUND]);
-	cube->image = image[FOREGROUND];
+	image.mem = mlx_get_data_addr(cube->sprites.image.mlx_ptr,
+			&image.bits_per_pixel, &image.line_length,
+			&image.endian);
+	set_backgound(cube->config.color, image);
+	cube->image = image;
 	return (0);
 }
 

@@ -89,6 +89,19 @@ int	check_position(char c)
 	return (0);
 }
 
+double	fill_orientation( char c)
+{
+	if (c == 'E')
+		return (0);
+	else if (c == 'N')
+		return (PI * 0.5);
+	else if (c == 'W')
+		return (PI);
+	else if (c == 'S')
+		return (PI * 1.5);
+	return (-1);
+}
+
 int	check_map(t_cube *cube, char **map)
 {
 	int	i;
@@ -104,20 +117,20 @@ int	check_map(t_cube *cube, char **map)
 				return (1);
 			if (map[i][j] == 'N' || map[i][j] == 'E' || map[i][j] == 'S' || map[i][j] == 'W')
 			{
-				if (cube->character.orientation != 0)
+				if (cube->character.orientation != -1)
 					ft_error(cube, "Map must contain exactly one player position");
 				else
 				{
 					cube->character.x = j;
 					cube->character.y = i;
-					cube->character.orientation = map[i][j];
+					cube->character.orientation = fill_orientation(map[i][j]);
 				}
 			}
 			j++;
 		}
 		i++;
 	}
-	if (cube->character.orientation == 0)
+	if (cube->character.orientation == -1)
 		ft_error(cube, "Character is not set");
 	return (0);
 }
