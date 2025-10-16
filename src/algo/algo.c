@@ -1,6 +1,7 @@
 #include "cube.h"
 #include "algo.h"
 #include "libft.h"
+#include "init.h"
 #include <math.h>
 
 static void	set_data(t_cube *cube, t_calc *data, double angle)
@@ -28,8 +29,6 @@ static double	ray_len(t_cube *cube, t_calc data)
 	return (res);
 }
 
-#include <stdio.h>
-
 void	raycasting(t_cube *cube)
 {
 	int		i;
@@ -43,6 +42,7 @@ void	raycasting(t_cube *cube)
 
 	i = -1;
 	ft_memset(&data, 0, sizeof(t_calc));
+	set_backgound(cube->config.color, cube->image);
 	while (++i < WINDOW_WIDTH)
 	{
 		angle = cube->character.orientation - (cube->fov * 0.5) + (cube->fov * i / WINDOW_WIDTH);
@@ -54,7 +54,6 @@ void	raycasting(t_cube *cube)
 		while (++j < height)
 		{
 			offset = (draw_start * cube->image.line_length) + (i * (cube->image.bits_per_pixel / 8));
-			printf("[%d]\n", cube->image.endian);
 			cube->image.mem[offset + 0] = (char)0;
 			cube->image.mem[offset + 1] = (char)0;
 			cube->image.mem[offset + 2] = (char)255;

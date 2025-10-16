@@ -41,7 +41,7 @@ typedef struct image
 typedef struct sprites
 {
 	t_image	text_wall[4];
-	t_image	image[2];
+	t_image	image;
 }			t_sprites;
 
 typedef struct character
