@@ -92,7 +92,7 @@ int	check_position(char c)
 double	fill_orientation( char c)
 {
 	if (c == 'E')
-		return (0);
+		return (PI * 2);
 	else if (c == 'N')
 		return (PI * 0.5);
 	else if (c == 'W')

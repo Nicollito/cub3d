@@ -31,17 +31,26 @@ typedef enum e_image_layer
 	FOREGROUND,
 }	t_layer;
 
+typedef struct image_data
+{
+	char	*mem;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_img_data;
+
 typedef struct image
 {
-	int		height;
-	int		width;
-	void	*mlx_ptr;
-}			t_image;
+	int			height;
+	int			width;
+	void		*mlx_ptr;
+	t_img_data	data;
+}				t_image;
 
 typedef struct sprites
 {
 	t_image	text_wall[4];
-	t_image	image;
+	t_image	frame;
 }			t_sprites;
 
 typedef struct character
@@ -63,14 +72,6 @@ typedef struct s_config
 	t_color		color[2];
 }				t_config;
 
-typedef struct image_data
-{
-	char	*mem;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}			t_img_data;
-
 typedef struct cube
 {
 	void		*mlx;
@@ -78,7 +79,6 @@ typedef struct cube
 	t_char		character;
 	t_sprites	sprites;
 	t_config	config;
-	t_img_data	image;
 	int			y_max;
 	int			x_max;
 	char		**map;

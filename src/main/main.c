@@ -5,6 +5,7 @@
 
 int	close_window(t_cube *cube)
 {
+	free_cube(cube);
 	exit(0);
 }
 
@@ -39,6 +40,8 @@ int	handle_keypress(int keycode, t_cube *cube)
 		move_character(cube, 1, 0);
 	else if (keycode == 65307)
 		close_window(cube);
+	raycasting(cube);
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.frame. mlx_ptr, 0, 0);
 	return (0);
 }
 
@@ -54,7 +57,7 @@ int main(int ac, char **av)
 	cube = parsing(av);
 	init_mlx(cube);
 	raycasting(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.image. mlx_ptr, 0, 0);
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.frame. mlx_ptr, 0, 0);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_hook(cube->mlx_window, 17, 0, close_window, cube);
 	mlx_loop(cube->mlx);

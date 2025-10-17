@@ -4,63 +4,18 @@
 #include "mlx.h"
 #include <math.h>
 
-static void	color_pixel(t_color *color, t_img_data image, int offset)
-{
-	if (image.endian == 1)
-	{
-		image.mem[offset + 1] = color->rgb[0];
-		image.mem[offset + 2] = color->rgb[1];
-		image.mem[offset + 3] = color->rgb[2];
-	}
-	else
-	{
-		image.mem[offset + 0] = color->rgb[2];
-		image.mem[offset + 1] = color->rgb[1];
-		image.mem[offset + 2] = color->rgb[0];
-	}
-}
-
-void	set_backgound(t_color *color, t_img_data image)
-{
-	int				x;
-	int				y;
-	int				offset;
-	t_color_type	type;
-
-	y = 0;
-	type = CEILING;
-	while (y <= WINDOW_HEIGHT)
-	{
-		x = 0;
-		while (x <= WINDOW_WIDTH)
-		{
-			offset = y * image.line_length + x
-				* (image.bits_per_pixel / 8);
-			if (color)
-				color_pixel(&color[type], image, offset);
-			else
-				color_pixel(NULL, image, offset);
-			++x;
-		}
-		if (y > WINDOW_HEIGHT / 2)
-			type = FLOOR;
-		++y;
-	}
-}
-
 static int	create_layers(t_cube *cube)
 {
 	t_img_data	image;
 
-	cube->sprites.image.mlx_ptr = mlx_new_image(cube->mlx,
+	cube->sprites.frame.mlx_ptr = mlx_new_image(cube->mlx,
 			WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!cube->sprites.image.mlx_ptr)
+	if (!cube->sprites.frame.mlx_ptr)
 		return (1);
-	image.mem = mlx_get_data_addr(cube->sprites.image.mlx_ptr,
+	image.mem = mlx_get_data_addr(cube->sprites.frame.mlx_ptr,
 			&image.bits_per_pixel, &image.line_length,
 			&image.endian);
-	set_backgound(cube->config.color, image);
-	cube->image = image;
+	cube->sprites.frame.data = image;
 	return (0);
 }
 
@@ -83,6 +38,10 @@ static int	set_sprites(t_cube *cube)
 		|| !cube->sprites.text_wall[TEXT_WE].mlx_ptr
 		|| !cube->sprites.text_wall[TEXT_EA].mlx_ptr)
 		return (1);
+	cube->sprites.text_wall[TEXT_NO].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_NO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_NO].data.line_length, &cube->sprites.text_wall[TEXT_NO].data.endian);
+	cube->sprites.text_wall[TEXT_SO].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_SO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_SO].data.line_length, &cube->sprites.text_wall[TEXT_SO].data.endian);
+	cube->sprites.text_wall[TEXT_EA].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_EA].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_EA].data.line_length, &cube->sprites.text_wall[TEXT_EA].data.endian);
+	cube->sprites.text_wall[TEXT_WE].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_WE].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_WE].data.line_length, &cube->sprites.text_wall[TEXT_WE].data.endian);
 	return (0);
 }
 
