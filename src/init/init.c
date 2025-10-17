@@ -38,10 +38,10 @@ static int	set_sprites(t_cube *cube)
 		|| !cube->sprites.text_wall[TEXT_WE].mlx_ptr
 		|| !cube->sprites.text_wall[TEXT_EA].mlx_ptr)
 		return (1);
-	cube->sprites.text_wall[TEXT_NO].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_NO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_NO].data.line_length, &cube->sprites.text_wall[TEXT_NO].data.endian);
-	cube->sprites.text_wall[TEXT_SO].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_SO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_SO].data.line_length, &cube->sprites.text_wall[TEXT_SO].data.endian);
-	cube->sprites.text_wall[TEXT_EA].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_EA].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_EA].data.line_length, &cube->sprites.text_wall[TEXT_EA].data.endian);
-	cube->sprites.text_wall[TEXT_WE].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_WE].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_WE].data.line_length, &cube->sprites.text_wall[TEXT_WE].data.endian);
+	cube->sprites.text_wall[TEXT_NO].data.mem = mlx_get_data_addr(cube->sprites.text_wall[TEXT_NO].mlx_ptr, &cube->sprites.text_wall[TEXT_NO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_NO].data.line_length, &cube->sprites.text_wall[TEXT_NO].data.endian);
+	cube->sprites.text_wall[TEXT_SO].data.mem = mlx_get_data_addr(cube->sprites.text_wall[TEXT_SO].mlx_ptr, &cube->sprites.text_wall[TEXT_SO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_SO].data.line_length, &cube->sprites.text_wall[TEXT_SO].data.endian);
+	cube->sprites.text_wall[TEXT_EA].data.mem = mlx_get_data_addr(cube->sprites.text_wall[TEXT_EA].mlx_ptr, &cube->sprites.text_wall[TEXT_EA].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_EA].data.line_length, &cube->sprites.text_wall[TEXT_EA].data.endian);
+	cube->sprites.text_wall[TEXT_WE].data.mem = mlx_get_data_addr(cube->sprites.text_wall[TEXT_WE].mlx_ptr, &cube->sprites.text_wall[TEXT_WE].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_WE].data.line_length, &cube->sprites.text_wall[TEXT_WE].data.endian);
 	return (0);
 }
 
@@ -59,6 +59,6 @@ int	init_mlx(t_cube *cube)
 	if (set_sprites(cube))
 		return (1);
 	cube->fov = (FOV * PI / 180);
-	cube->dist_proj = (WINDOW_HEIGHT / 2) / tan(cube->fov / 2);
+	cube->dist_proj = (WINDOW_WIDTH / 2) / tan(cube->fov / 2);
 	return (0);
 }

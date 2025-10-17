@@ -5,6 +5,9 @@ MAKEFLAGS += --no-print-directory
 NAME = cub3D
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
+ifndef NOFLAG
+    CFLAGS := $(filter-out -Werror -Wextra -Wall, $(CFLAGS))
+endif
 CFLAGS += 										\
 					-Iminilibx-linux			\
 					-Ilibft						\
