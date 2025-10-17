@@ -6,7 +6,7 @@
 
 static void	set_data(t_cube *cube, t_calc *data, double angle)
 {
-	data->step = 0.1;
+	data->step = 0.05;
 	data->ray_x = cube->character.x;
 	data->ray_y = cube->character.y;
 	data->ray_dir_x = cos(angle);
