@@ -1,7 +1,8 @@
 #include "cube.h"
 #include "init.h"
-#include "mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include "parsing.h"
+#include <math.h>
 
 int	close_window(t_cube *cube)
 {
@@ -9,36 +10,26 @@ int	close_window(t_cube *cube)
 	exit(0);
 }
 
-
-
-void	move_character(t_cube *cube, int x, int y)
+void	move_character(t_cube *cube, int forward, double move_speed)
 {
-	int	new_x;
-	int	new_y;
-
-	new_x = cube->character.x + x;
-	new_y = cube->character.y + y;
-	if (cube->map[new_y][new_x] == '1')
-		return ;
-	else
-	{
-		cube->character.x = new_x;
-		cube->character.y = new_y;
-	}
-	
+	cube->character.x += cos(cube->character.orientation) * move_speed * forward;
+	cube->character.y += sin(cube->character.orientation) * move_speed * forward;
 }
 
 int	handle_keypress(int keycode, t_cube *cube)
 {
-	if (keycode == 119 || keycode == 65362)
-		move_character(cube, 0, -1);
-	else if (keycode == 97 || keycode == 65361)
-		move_character(cube, -1, 0);
-	else if (keycode == 115 || keycode == 65364)
-		move_character(cube, 0, 1);
-	else if (keycode == 100 || keycode == 65363)
-		move_character(cube, 1, 0);
-	else if (keycode == 65307)
+	double move_speed;
+
+	move_speed = 0.05;
+	if (keycode == KEY_W || keycode == KEY_UP)
+		move_character(cube, 1, move_speed);
+	else if (keycode == KEY_A || keycode == KEY_LEFT)
+		cube->character.orientation -= move_speed;
+	else if (keycode == KEY_S|| keycode == KEY_DOWN)
+		move_character(cube, -1, move_speed);
+	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+		cube->character.orientation += move_speed;
+	else if (keycode == KEY_ESC)
 		close_window(cube);
 	raycasting(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.frame. mlx_ptr, 0, 0);
