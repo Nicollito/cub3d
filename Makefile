@@ -5,9 +5,6 @@ MAKEFLAGS += --no-print-directory
 NAME = cub3D
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-ifndef NOFLAG
-    CFLAGS := $(filter-out -Werror -Wextra -Wall, $(CFLAGS))
-endif
 CFLAGS += 										\
 					-Iminilibx-linux			\
 					-Ilibft						\
@@ -76,6 +73,9 @@ SRCS_LIB = $(shell make -s -C libft print_src)
 HEADER_LIB = $(shell make -s -C libft print_header)
 #------------------------------------RULES------------------------------------#
 all : $(LIB) check-build
+
+noflag :
+	$(MAKE) real-all CFLAGS="$(filter-out -Werror -Wextra -Wall, $(CFLAGS))"
 
 print_header :
 	@echo $(HEADER)

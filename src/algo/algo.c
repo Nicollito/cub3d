@@ -140,6 +140,8 @@ static double	pos_y_texture(t_cube *cube, t_wall wall, double *step)
 	return (text_y);
 }
 
+#include <stdio.h>
+
 static int	pos_x_texture(t_cube *cube, t_calc data, t_wall wall)
 {
 	int		text_x;
@@ -150,8 +152,8 @@ static int	pos_x_texture(t_cube *cube, t_calc data, t_wall wall)
 	else
 		wall_x = data.ray_x - floor(data.ray_x);
 	text_x = (int)(wall_x * cube->sprites.text_wall[wall.texture].width);
-/* 	printf("wall.side=%d, ray_x=%.3f, ray_y=%.3f, wall_x=%.3f, text_x=%d\n", 
-       wall.side, data.ray_x, data.ray_y, wall_x, text_x); */
+	printf("wall.side=%d, ray_x=%.3f, ray_y=%.3f, wall_x=%.3f, text_x=%d\n", 
+		wall.side, data.ray_x, data.ray_y, wall_x, text_x);
 	return (text_x);
 }
 
