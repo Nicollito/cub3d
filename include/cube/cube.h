@@ -8,6 +8,7 @@
 # define WINDOW_HEIGHT 1080
 # define PI 3.1415926535
 # define FOV 60
+# define NB_TEXTURES 4
 
 # define KEY_W 119
 # define KEY_A 97

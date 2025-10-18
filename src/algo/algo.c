@@ -140,8 +140,6 @@ static double	pos_y_texture(t_cube *cube, t_wall wall, double *step)
 	return (text_y);
 }
 
-#include <stdio.h>
-
 static int	pos_x_texture(t_cube *cube, t_calc data, t_wall wall)
 {
 	int		text_x;
@@ -152,8 +150,6 @@ static int	pos_x_texture(t_cube *cube, t_calc data, t_wall wall)
 	else
 		wall_x = data.ray_x - floor(data.ray_x);
 	text_x = (int)(wall_x * cube->sprites.text_wall[wall.texture].width);
-	printf("wall.side=%d, ray_x=%.3f, ray_y=%.3f, wall_x=%.3f, text_x=%d\n", 
-		wall.side, data.ray_x, data.ray_y, wall_x, text_x);
 	return (text_x);
 }
 
@@ -173,10 +169,10 @@ static void	write_column(t_cube *cube, t_wall wall, t_calc data, int column)
 	{
 		offset_frame = ((wall.draw_start + i) * cube->sprites.frame.data.line_length) + (column * (cube->sprites.frame.data.bits_per_pixel / 8));
 		offset_text = ((int)(text_y + step * i) * cube->sprites.text_wall[wall.texture].data.line_length) + (text_x * (cube->sprites.text_wall[wall.texture].data.bits_per_pixel / 8));
-		cube->sprites.frame.data.mem[offset_frame + 0] = /* (char)255; */cube->sprites.text_wall[wall.texture].data.mem[offset_text + 0];
-		cube->sprites.frame.data.mem[offset_frame + 1] = /* (char)0; */cube->sprites.text_wall[wall.texture].data.mem[offset_text + 1];
-		cube->sprites.frame.data.mem[offset_frame + 2] = /* (char)0; */cube->sprites.text_wall[wall.texture].data.mem[offset_text + 2];
-		cube->sprites.frame.data.mem[offset_frame + 3] = /* (char)0; */cube->sprites.text_wall[wall.texture].data.mem[offset_text + 3];
+		cube->sprites.frame.data.mem[offset_frame + 0] = cube->sprites.text_wall[wall.texture].data.mem[offset_text + 0];
+		cube->sprites.frame.data.mem[offset_frame + 1] = cube->sprites.text_wall[wall.texture].data.mem[offset_text + 1];
+		cube->sprites.frame.data.mem[offset_frame + 2] = cube->sprites.text_wall[wall.texture].data.mem[offset_text + 2];
+		cube->sprites.frame.data.mem[offset_frame + 3] = cube->sprites.text_wall[wall.texture].data.mem[offset_text + 3];
 	}
 }
 
