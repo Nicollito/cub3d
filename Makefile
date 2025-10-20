@@ -81,6 +81,9 @@ HEADER_LIB = $(shell make -s -C libft print_header)
 #------------------------------------RULES------------------------------------#
 all : $(LIB) check-build
 
+noflag :
+	$(MAKE) real-all CFLAGS="$(filter-out -Werror -Wextra -Wall, $(CFLAGS))"
+
 print_header :
 	@echo $(HEADER)
 

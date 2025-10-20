@@ -18,6 +18,7 @@ typedef struct wall
 typedef struct calculator
 {
 	double	step;
+	double	dist; //tmp
 	double	ray_x;
 	double	ray_y;
 	double	ray_dir_x;

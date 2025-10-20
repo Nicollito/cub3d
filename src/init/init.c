@@ -4,7 +4,19 @@
 #include "mlx.h"
 #include <math.h>
 
-static int	create_layers(t_cube *cube)
+/**
+ * @brief Creates a new image frame for rendering and stores it in the cube
+ * structure.
+ *
+ * This function allocates a new image using the MiniLibX library with the
+ * window's width and height. It then retrieves the image data address and
+ * stores the related info (memory address, bits per pixel, line length,
+ * endian) inside the cube's frame structure.
+ *
+ * @param cube Pointer to the main cube structure containing rendering data.
+ * @return 0 on success, or 1 if the image allocation failed.
+ */
+static int	create_frame(t_cube *cube)
 {
 	t_img_data	image;
 
@@ -19,33 +31,58 @@ static int	create_layers(t_cube *cube)
 	return (0);
 }
 
-static int	set_sprites(t_cube *cube)
+/**
+ * @brief Loads a texture from an XPM file and stores its data in the texture
+ * structure.
+ *
+ * This function uses MiniLibX to load an image from the given file path, then
+ * retrieves its data address and related info (bits per pixel, line length,
+ * endian) to store in the texture structure.
+ *
+ * @param texture Pointer to the texture structure to initialize.
+ * @param mlx_ptr Pointer to the MiniLibX instance.
+ * @param path Path to the XPM file to load.
+ * @return 0 on success, or 1 if the texture could not be loaded.
+ */
+static int	load_texture(t_image *texture, void *mlx_ptr, char *path)
 {
-	cube->sprites.text_wall[TEXT_NO].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
-			cube->config.textures[TEXT_NO], &cube->sprites.text_wall[TEXT_NO].width,
-			&cube->sprites.text_wall[TEXT_NO].height);
-	cube->sprites.text_wall[TEXT_SO].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
-			cube->config.textures[TEXT_SO], &cube->sprites.text_wall[TEXT_SO].width,
-			&cube->sprites.text_wall[TEXT_SO].height);
-	cube->sprites.text_wall[TEXT_WE].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
-			cube->config.textures[TEXT_WE], &cube->sprites.text_wall[TEXT_WE].width,
-			&cube->sprites.text_wall[TEXT_WE].height);
-	cube->sprites.text_wall[TEXT_EA].mlx_ptr = mlx_xpm_file_to_image(cube->mlx,
-			cube->config.textures[TEXT_EA], &cube->sprites.text_wall[TEXT_EA].width,
-			&cube->sprites.text_wall[TEXT_EA].height);
-	if (!cube->sprites.text_wall[TEXT_NO].mlx_ptr
-		|| !cube->sprites.text_wall[TEXT_SO].mlx_ptr
-		|| !cube->sprites.text_wall[TEXT_WE].mlx_ptr
-		|| !cube->sprites.text_wall[TEXT_EA].mlx_ptr)
+	texture->mlx_ptr = mlx_xpm_file_to_image(mlx_ptr, path, &texture->width,
+			&texture->height);
+	if (!texture->mlx_ptr)
 		return (1);
-	cube->sprites.text_wall[TEXT_NO].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_NO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_NO].data.line_length, &cube->sprites.text_wall[TEXT_NO].data.endian);
-	cube->sprites.text_wall[TEXT_SO].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_SO].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_SO].data.line_length, &cube->sprites.text_wall[TEXT_SO].data.endian);
-	cube->sprites.text_wall[TEXT_EA].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_EA].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_EA].data.line_length, &cube->sprites.text_wall[TEXT_EA].data.endian);
-	cube->sprites.text_wall[TEXT_WE].data.mem = mlx_get_data_addr(cube->mlx, &cube->sprites.text_wall[TEXT_WE].data.bits_per_pixel, &cube->sprites.text_wall[TEXT_WE].data.line_length, &cube->sprites.text_wall[TEXT_WE].data.endian);
+	texture->data.mem = mlx_get_data_addr(texture->mlx_ptr,
+			&texture->data.bits_per_pixel, &texture->data.line_length,
+			&texture->data.endian);
 	return (0);
 }
 
-int	init_mlx(t_cube *cube)
+/**
+ * @brief Loads all wall textures defined in the configuration and stores them
+ * in the cube structure.
+ *
+ * This function iterates through all texture paths listed in the cube
+ * configuration and loads each texture using the MiniLibX library. Each loaded
+ * texture is stored in the cube's sprite array for later rendering.
+ *
+ * @param cube Pointer to the main cube structure containing configuration and
+ * texture data.
+ * @return 0 on success, or 1 if any texture failed to load.
+ */
+static int	init_wall_textures(t_cube *cube)
+{
+	int	i;
+
+	i = -1;
+	while (++i < NB_TEXTURES)
+	{
+		if (load_texture(&cube->sprites.text_wall[i], cube->mlx,
+				cube->config.textures[i]))
+			return (1);
+	}
+	return (0);
+}
+
+int	setup_mlx_context(t_cube *cube)
 {
 	cube->mlx = mlx_init();
 	if (!cube->mlx)
@@ -54,11 +91,11 @@ int	init_mlx(t_cube *cube)
 			WINDOW_HEIGHT, "cub3D");
 	if (!cube->mlx_window)
 		return (1);
-	if (create_layers(cube))
+	if (create_frame(cube))
 		return (1);
-	if (set_sprites(cube))
+	if (init_wall_textures(cube))
 		return (1);
 	cube->fov = (FOV * PI / 180);
-	cube->dist_proj = (WINDOW_HEIGHT / 2) / tan(cube->fov / 2);
+	cube->dist_proj = (WINDOW_WIDTH / 2) / tan(cube->fov / 2);
 	return (0);
 }
