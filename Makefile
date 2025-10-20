@@ -12,7 +12,8 @@ CFLAGS += 										\
 					-Iinclude/cube				\
 					-Iinclude/error				\
 					-Iinclude/init				\
-					-Iinclude/parsing
+					-Iinclude/parsing			\
+					-Iinclude/moves
 DFLAGS = -MMD -MF
 LDFLAGS = -Lmlx-linux -Lmlx -Imlx -L/usr/lib -lX11 -lXext -lm -lz
 LIB = libft/libft.a
@@ -28,7 +29,8 @@ SRC_DIR 		=										\
 						error							\
 						init							\
 						main							\
-						parsing
+						parsing							\
+						moves
 algo_SRCS		=										\
 						algo.c
 error_SRCS		=										\
@@ -43,6 +45,8 @@ parsing_SRCS	=										\
 						parsing_filename.c				\
 						parsing_textures.c				\
 						parsing_map.c
+moves_SRCS		=										\
+						moves.c
 SRCS =	$(foreach dir,$(SRC_DIR), $(addprefix $(SRC)/$(dir)/,$($(dir)_SRCS)))
 #-----------------------------------OBJECTS-----------------------------------#
 OBJ_DIR = 											\
@@ -58,7 +62,8 @@ HEADER_DIR			=								\
 						algo						\
 						cube						\
 						error						\
-						parsing
+						parsing						\
+						moves
 algo_HDR			=								\
 						algo.h
 cube_HDR			= 								\
@@ -67,6 +72,8 @@ error_HDR			=								\
 						error.h
 parsing_HDR			=								\
 						parsing.h
+moves_HDR			=								\
+						moves.h
 HEADER = 	$(foreach dir,$(HEADER_DIR), $(addprefix $(INCLUDE)/$(dir)/,$($(dir)_HDR)))
 #------------------------------------UTILS------------------------------------#
 SRCS_LIB = $(shell make -s -C libft print_src)

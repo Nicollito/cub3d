@@ -6,7 +6,7 @@
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
-# define PI 3.1415926535
+# define PI 3.14159265358979323846
 # define FOV 60
 # define NB_TEXTURES 4
 
