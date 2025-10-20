@@ -79,7 +79,7 @@ static void	set_data(t_cube *cube, t_calc *data, double angle)
 	data->ray_x = cube->character.x;
 	data->ray_y = cube->character.y;
 	data->ray_dir_x = cos(angle);
-	data->ray_dir_y = -sin(angle);
+	data->ray_dir_y = sin(angle);
 }
 
 void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column)
@@ -87,7 +87,8 @@ void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column)
 	double	angle;
 	double	len;
 
-	angle = cube->character.orientation - (cube->fov * 0.5) + (cube->fov * column / WINDOW_WIDTH);
+	angle = cube->character.orientation - (cube->fov * 0.5) + (cube->fov
+			* column / WINDOW_WIDTH);
 	set_data(cube, data, angle);
 	len = ray_len(cube, data, wall);
 	wall->height = (int)(cube->dist_proj / len);
@@ -95,4 +96,3 @@ void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column)
 	if (wall->draw_start < 0)
 		wall->draw_start = 0;
 }
-

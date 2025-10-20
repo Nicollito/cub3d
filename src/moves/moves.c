@@ -50,8 +50,5 @@ int	handle_keypress(int keycode, t_cube *cube)
 		close_window(cube);
 	printf("x:[%f] - y:[%f] - orientation[%f]\n", cube->character.x,
 		cube->character.y, cube->character.orientation);
-	raycasting(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
-		cube->sprites.frame. mlx_ptr, 0, 0);
 	return (0);
 }

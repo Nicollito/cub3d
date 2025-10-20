@@ -32,7 +32,10 @@ SRC_DIR 		=										\
 						parsing							\
 						moves
 algo_SRCS		=										\
-						algo.c
+						algo.c							\
+						background.c					\
+						frame.c							\
+						setup.c
 error_SRCS		=										\
 						error.c
 init_SRCS		=										\

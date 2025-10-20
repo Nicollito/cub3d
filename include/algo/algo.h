@@ -18,11 +18,21 @@ typedef struct wall
 typedef struct calculator
 {
 	double	step;
-	double	dist; //tmp
 	double	ray_x;
 	double	ray_y;
 	double	ray_dir_x;
 	double	ray_dir_y;
 }			t_calc;
+
+/* ------------------algo/------------------ */
+
+// algo.c
+void	raycasting(t_cube *cube);
+
+// background.c
+void	print_backgound(t_color *color, t_img_data image);
+
+// setup.c
+void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column);
 
 #endif

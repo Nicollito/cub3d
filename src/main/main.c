@@ -16,9 +16,7 @@ int	main(int ac, char **av)
 	}
 	cube = parsing(av);
 	setup_mlx_context(cube);
-	raycasting(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
-		cube->sprites.frame. mlx_ptr, 0, 0);
+	mlx_loop_hook(cube->mlx, print_frame_to_window, cube);
 	mlx_hook(cube->mlx_window, 2, 1L << 0, handle_keypress, cube);
 	mlx_hook(cube->mlx_window, 17, 0, close_window, cube);
 	mlx_loop(cube->mlx);
