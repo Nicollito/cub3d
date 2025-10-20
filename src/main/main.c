@@ -14,7 +14,7 @@ int	main(int ac, char **av)
 		print_error("Wrong number of arguments");
 		return (1);
 	}
-	cube = parsing(av);
+	cube = parse_cub(av);
 	setup_mlx_context(cube);
 	raycasting(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,

@@ -1,6 +1,6 @@
 #include "parsing.h"
 
-t_texture_type get_texture_type(char *line)
+t_texture_type	identify_texture_type(char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (TEXT_NO);
@@ -15,11 +15,11 @@ t_texture_type get_texture_type(char *line)
 
 void	parse_texture(t_cube *cube, char *line)
 {
-	t_texture_type 	type;
+	t_texture_type	type;
 	char			*path;
 	int				fd;
 
-	type = get_texture_type(line);
+	type = identify_texture_type(line);
 	if (type == INVALID_TEXTURE)
 		ft_error(cube, "Invalid texture identifier");
 	path = ft_strtrim(line + 2, " \n");

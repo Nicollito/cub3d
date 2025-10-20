@@ -40,11 +40,13 @@ init_SRCS		=										\
 main_SRCS		=										\
 						main.c
 parsing_SRCS	=										\
+						parse_colors.c					\
+						parse_config.c					\
+						parse_map.c						\
+						parse_textures.c				\
 						parsing.c						\
-						parsing_colors.c				\
-						parsing_filename.c				\
-						parsing_textures.c				\
-						parsing_map.c
+						utils_parsing.c					\
+						validate_map.c
 moves_SRCS		=										\
 						moves.c
 SRCS =	$(foreach dir,$(SRC_DIR), $(addprefix $(SRC)/$(dir)/,$($(dir)_SRCS)))
