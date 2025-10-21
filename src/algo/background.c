@@ -3,25 +3,20 @@
 
 static void	color_pixel(t_color *color, t_img_data image, int offset)
 {
+	int	rgba;
+
 	if (image.endian == 1)
-	{
-		image.mem[offset + 1] = color->rgb[0];
-		image.mem[offset + 2] = color->rgb[1];
-		image.mem[offset + 3] = color->rgb[2];
-	}
+		rgba = (color->rgb[0] << 16) | (color->rgb[1] << 8) | color->rgb[2];
 	else
-	{
-		image.mem[offset + 0] = color->rgb[2];
-		image.mem[offset + 1] = color->rgb[1];
-		image.mem[offset + 2] = color->rgb[0];
-	}
+		rgba = (color->rgb[2] << 16) | (color->rgb[1] << 8) | color->rgb[0];
+	((int *)image.mem)[offset] = rgba;
 }
 
 void	print_backgound(t_color *color, t_img_data image)
 {
 	int				x;
 	int				y;
-	int				offset;
+	double			offset;
 	t_color_type	type;
 
 	y = 0;
@@ -31,9 +26,9 @@ void	print_backgound(t_color *color, t_img_data image)
 		x = 0;
 		while (x <= WINDOW_WIDTH)
 		{
-			offset = y * image.line_length + x
-				* (image.bits_per_pixel / 8);
-			color_pixel(&color[type], image, offset);
+			offset = (y * image.line_length + x
+					* (image.bits_per_pixel / 8)) * 0.25;
+			color_pixel(&color[type], image, (int)offset);
 			++x;
 		}
 		if (y > WINDOW_HEIGHT / 2)

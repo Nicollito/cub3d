@@ -4,12 +4,12 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-static int	second_past()
+static int	second_past(void)
 {
 	static int		last_second = 0;
 	struct timeval	tv;
 
-	gettimeofday(&tv, (void*)0);
+	gettimeofday(&tv, (void *)0);
 	if (tv.tv_sec != last_second)
 	{
 		last_second = tv.tv_sec;
@@ -18,7 +18,7 @@ static int	second_past()
 	return (0);
 }
 
-static void	frame_per_second()
+static void	frame_per_second(void)
 {
 	static int	frames = 0;
 
@@ -33,7 +33,8 @@ static void	frame_per_second()
 int	print_frame_to_window(t_cube *cube)
 {
 	raycasting(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.frame.mlx_ptr, 0, 0);
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
+		cube->sprites.frame.mlx_ptr, 0, 0);
 	frame_per_second();
 	return (0);
 }
