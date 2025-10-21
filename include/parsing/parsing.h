@@ -50,5 +50,6 @@ void			fill_character_position(t_cube *cube, char **map, int i, int j);
 int				validate_map_content(t_cube *cube, char **map);
 int				validate_map_boundaries(char *line);
 
+void	        free_cube(t_cube *cube);
 
 #endif

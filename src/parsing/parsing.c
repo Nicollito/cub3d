@@ -5,6 +5,15 @@
 
 void	free_cube(t_cube *cube)
 {
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		free(cube->config.textures[i]);
+	i = -1;
+	while (++i < cube->y_max)
+		free(cube->map[i]);
+	free(cube->map);
 	free(cube);
 }
 
@@ -60,7 +69,6 @@ void	parse_cub_file(t_cube *cube, char *file)
 	if (cube->character.orientation == -1)
 		ft_error(cube, "Character is not set");
 	validate_map_content_closure(cube);
-	free(line);
 }
 
 t_cube	*parse_cub(char **av)
