@@ -69,7 +69,9 @@ int	handle_keypress(int keycode, t_cube *cube)
 		strafe_character(cube, 1, move_speed);
 	else if (keycode == KEY_ESC)
 		close_window(cube);
-	printf("x:[%f] - y:[%f] - orientation[%f]\n", cube->character.x,
-		cube->character.y, cube->character.orientation);
+/* 	printf("x:[%f] - y:[%f] - orientation[%f]\n", cube->character.x,
+		cube->character.y, cube->character.orientation); */
+/* 	raycasting(cube);
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.frame.mlx_ptr, 0, 0); */
 	return (0);
 }

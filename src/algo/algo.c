@@ -4,6 +4,7 @@
 #include "init.h"
 #include <math.h>
 
+#include <stdio.h>
 static double	pos_y_texture(t_cube *cube, t_wall wall, double *step)
 {
 	double	text_y;
@@ -13,10 +14,6 @@ static double	pos_y_texture(t_cube *cube, t_wall wall, double *step)
 	text_y = 0.0;
 	if (wall.height > WINDOW_HEIGHT)
 		text_y = ((wall.height / 2) - (WINDOW_HEIGHT / 2)) * *step;
-	if (text_y < 0)
-		text_y = 0;
-	if (text_y >= cube->sprites.text_wall[wall.texture].height)
-		text_y = cube->sprites.text_wall[wall.texture].height - 1;
 	return (text_y);
 }
 
@@ -25,7 +22,7 @@ static int	pos_x_texture(t_cube *cube, t_calc data, t_wall wall)
 	int		text_x;
 	double	wall_x;
 
-	if (wall.side == HORAZONTAL)
+	if (wall.side == HORIZONTAL)
 		wall_x = data.ray_y - floor(data.ray_y);
 	else
 		wall_x = data.ray_x - floor(data.ray_x);
@@ -35,11 +32,11 @@ static int	pos_x_texture(t_cube *cube, t_calc data, t_wall wall)
 
 static void	write_column(t_cube *cube, t_wall wall, t_calc data, int column)
 {
-	int	i;
-	int	text_x;
-	int	text_y;
-	int	offset_frame;
-	int	offset_text;
+	int		i;
+	int		text_x;
+	double	text_y;
+	int		offset_frame;
+	int		offset_text;
 
 	i = -1;
 	text_x = pos_x_texture(cube, data, wall);

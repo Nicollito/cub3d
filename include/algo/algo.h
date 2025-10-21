@@ -4,7 +4,7 @@
 typedef enum e_side
 {
 	VERTICAL,
-	HORAZONTAL,
+	HORIZONTAL,
 }	t_side;
 
 typedef struct wall

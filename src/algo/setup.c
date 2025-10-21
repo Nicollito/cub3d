@@ -25,7 +25,7 @@ static void	set_step(t_calc *data, t_side *side)
 	}
 	else
 	{
-		*side = HORAZONTAL;
+		*side = HORIZONTAL;
 		data->step = dist_x;
 	}
 }
@@ -39,7 +39,7 @@ static void	set_texture_orientation(t_wall *wall, t_calc data)
 		else
 			wall->texture = TEXT_SO;
 	}
-	if (wall->side == HORAZONTAL)
+	if (wall->side == HORIZONTAL)
 	{
 		if (data.ray_dir_x < 0)
 			wall->texture = TEXT_EA;
@@ -63,7 +63,7 @@ static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall, double angle)
 		res += data->step;
 		x = (int)data->ray_x;
 		y = (int)data->ray_y;
-		if (data->ray_dir_x < 0 && wall->side == HORAZONTAL && x > 0)
+		if (data->ray_dir_x < 0 && wall->side == HORIZONTAL && x > 0)
 			x = (int)data->ray_x - 1;
 		else if (data->ray_dir_y < 0 && wall->side == VERTICAL && y > 0)
 			y = (int)data->ray_y - 1;
