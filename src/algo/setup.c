@@ -48,7 +48,7 @@ static void	set_texture_orientation(t_wall *wall, t_calc data)
 	}
 }
 
-static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall)
+static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall, double angle)
 {
 	int		x;
 	int		y;
@@ -71,6 +71,7 @@ static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall)
 			break ;
 	}
 	set_texture_orientation(wall, *data);
+	res = res * cos(angle - cube->character.orientation);
 	return (res);
 }
 
@@ -90,7 +91,7 @@ void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column)
 	angle = cube->character.orientation - (cube->fov * 0.5) + (cube->fov
 			* column / WINDOW_WIDTH);
 	set_data(cube, data, angle);
-	len = ray_len(cube, data, wall);
+	len = ray_len(cube, data, wall, angle);
 	wall->height = (int)(cube->dist_proj / len);
 	wall->draw_start = (WINDOW_HEIGHT / 2) - (wall->height / 2);
 	if (wall->draw_start < 0)
