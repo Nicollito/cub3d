@@ -1,11 +1,12 @@
 #include "moves.h"
+#include "parsing.h"
 #include <math.h>
 #include <stdio.h>
 #include "mlx.h"
 
 int	close_window(t_cube *cube)
 {
-	free(cube);
+	free_cube(cube);
 	exit(0);
 }
 
@@ -22,7 +23,7 @@ void	move_character(t_cube *cube, int forward, double move_speed)
 		cube->map[(int)(new_y - 0.1)][(int)cube->character.x] != '1')
 		cube->character.y = new_y;
 	if (cube->map[(int)cube->character.y][(int)(new_x + 0.1)] != '1' &&
-		cube->map[(int)cube->character.y][(int)(new_x + 0.1)] != '1')
+		cube->map[(int)cube->character.y][(int)(new_x - 0.1)] != '1')
 		cube->character.x = new_x;
 }
 
@@ -31,14 +32,14 @@ void	strafe_character(t_cube *cube, int direction, double move_speed)
 	double	strafe_x;
 	double	strafe_y;
 
-	strafe_x = -sin(cube->character.orientation) * move_speed * direction;
-	strafe_y = cos(cube->character.orientation) * move_speed * direction;
+	strafe_x = cube->character.x - sin(cube->character.orientation) * move_speed * direction;
+	strafe_y = cube->character.y + cos(cube->character.orientation) * move_speed * direction;
 	
 	if (cube->map[(int)(strafe_y + 0.1)][(int)cube->character.x] != '1' &&
 		cube->map[(int)(strafe_y - 0.1)][(int)cube->character.x] != '1')
 		cube->character.y = strafe_y;
 	if (cube->map[(int)cube->character.y][(int)(strafe_x + 0.1)] != '1' &&
-		cube->map[(int)cube->character.y][(int)(strafe_x + 0.1)] != '1')
+		cube->map[(int)cube->character.y][(int)(strafe_x - 0.1)] != '1')
 		cube->character.x = strafe_x;
 }
 
