@@ -42,9 +42,9 @@ static void	set_texture_orientation(t_wall *wall, t_calc data)
 	if (wall->side == HORIZONTAL)
 	{
 		if (data.ray_dir_x < 0)
-			wall->texture = TEXT_EA;
-		else
 			wall->texture = TEXT_WE;
+		else
+			wall->texture = TEXT_EA;
 	}
 }
 
@@ -52,8 +52,10 @@ static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall, double angle)
 {
 	int		x;
 	int		y;
+	int		way;
 	double	res;
 
+	way = 1;
 	res = 0;
 	while (1)
 	{
@@ -64,14 +66,20 @@ static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall, double angle)
 		x = (int)data->ray_x;
 		y = (int)data->ray_y;
 		if (data->ray_dir_x < 0 && wall->side == HORIZONTAL && x > 0)
-			x = (int)data->ray_x - 1;
+			x -= 1;
 		else if (data->ray_dir_y < 0 && wall->side == VERTICAL && y > 0)
-			y = (int)data->ray_y - 1;
+			y -= 1;
 		if (cube->map[y][x] == '1')
 			break ;
 	}
 	set_texture_orientation(wall, *data);
-	res = res * cos(angle - cube->character.orientation);
+/* 	if (wall->texture == TEXT_NO || wall->texture == TEXT_WE)
+		way = -1;
+	if (wall->side == VERTICAL)
+		res = (data->ray_x - cube->character.x + (1 - way) / 2) / data->ray_dir_x;
+	if (wall->side == HORIZONTAL)
+		res = (data->ray_y - cube->character.y + (1 - way) / 2) / data->ray_dir_y; */
+	res = res * cos(cube->character.orientation - angle);
 	return (res);
 }
 

@@ -31,7 +31,7 @@ void	print_backgound(t_color *color, t_img_data image)
 			color_pixel(&color[type], image, (int)offset);
 			++x;
 		}
-		if (y > WINDOW_HEIGHT / 2)
+		if (type != FLOOR && y > WINDOW_HEIGHT / 2)
 			type = FLOOR;
 		++y;
 	}

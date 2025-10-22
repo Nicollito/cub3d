@@ -4,28 +4,27 @@
 #include "init.h"
 #include <math.h>
 
-static double	pos_y_texture(t_sprites sprites, t_wall wall, double *step)
+static double	pos_y_texture(t_image text_wall, t_wall wall, double *step)
 {
 	double	text_y;
 
-	*step = (double)sprites.text_wall[wall.texture].height
-		/ (double)wall.height;
+	*step = (double)text_wall.height / (double)wall.height;
 	text_y = 0.0;
 	if (wall.height > WINDOW_HEIGHT)
-		text_y = ((wall.height / 2) - (WINDOW_HEIGHT / 2)) * *step;
+		text_y = ((wall.height * 0.5) - (WINDOW_HEIGHT * 0.5)) * *step;
 	return (text_y);
 }
 
-static int	pos_x_texture(t_sprites sprites, t_calc data, t_wall wall)
+static int	pos_x_texture(t_image text_wall, t_calc data, t_wall wall)
 {
 	int		text_x;
 	double	wall_x;
 
 	if (wall.side == HORIZONTAL)
-		wall_x = data.ray_y - floor(data.ray_y);
+		wall_x = data.ray_y - (long)data.ray_y;
 	else
-		wall_x = data.ray_x - floor(data.ray_x);
-	text_x = (int)(wall_x * sprites.text_wall[wall.texture].width);
+		wall_x = data.ray_x - (long)data.ray_x;
+	text_x = (int)(wall_x * text_wall.width);
 	return (text_x);
 }
 
@@ -38,10 +37,10 @@ static void	write_column(t_sprites sprite, t_wall wall, t_calc data, int column)
 	t_image	frame;
 
 	i = -1;
-	text_x = pos_x_texture(sprite, data, wall);
-	text_y = pos_y_texture(sprite, wall, &data.step);
 	text_wall = sprite.text_wall[wall.texture];
 	frame = sprite.frame;
+	text_x = pos_x_texture(text_wall, data, wall);
+	text_y = pos_y_texture(text_wall, wall, &data.step);
 	while (++i < wall.height && i + wall.draw_start < WINDOW_HEIGHT)
 	{
 		((int *)frame.data.mem)
