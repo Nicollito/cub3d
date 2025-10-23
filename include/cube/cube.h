@@ -9,6 +9,7 @@
 # define PI 3.14159265358979323846
 # define FOV 60
 # define NB_TEXTURES 4
+# define RAY_BASE_Y -1
 
 # define KEY_W 119
 # define KEY_A 97
@@ -106,6 +107,7 @@ typedef struct cube
 	char		**textures;
 	double		dist_proj;
 	double		fov;
+	double		ray_base_x[WINDOW_WIDTH];
 }				t_cube;
 
 int	print_frame_to_window(t_cube *cube);

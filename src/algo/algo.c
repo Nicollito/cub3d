@@ -63,7 +63,7 @@ void	raycasting(t_cube *cube)
 	ft_memset(&wall, 0, sizeof(t_wall));
 	ft_memset(&data, 0, sizeof(t_calc));
 	sprites = cube->sprites;
-	print_backgound(cube->config.color, cube->sprites.frame.data);
+	print_backgound(cube->config.color, sprites.frame.data);
 	while (++column < WINDOW_WIDTH)
 	{
 		get_write_value(cube, &wall, &data, column);

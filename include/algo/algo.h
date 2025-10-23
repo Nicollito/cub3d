@@ -24,6 +24,11 @@ typedef struct calculator
 	double	ray_dir_y;
 }			t_calc;
 
+typedef struct algo
+{
+	
+}		t_algo;
+
 /* ------------------algo/------------------ */
 
 // algo.c
