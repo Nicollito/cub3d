@@ -111,6 +111,5 @@ typedef struct cube
 }				t_cube;
 
 int	print_frame_to_window(t_cube *cube);
-void	raycasting(t_cube *cube);
 
 #endif

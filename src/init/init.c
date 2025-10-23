@@ -107,7 +107,7 @@ int	setup_mlx_context(t_cube *cube)
 	if (init_wall_textures(cube))
 		return (1);
 	cube->fov = (FOV * PI / 180);
-	cube->dist_proj = (WINDOW_WIDTH * 0.5) / tan(cube->fov * 0.5); // à suppr 
+	cube->dist_proj = (WINDOW_WIDTH * 0.5) / tan(cube->fov * 0.5);
 	set_base_x(cube->fov, cube->ray_base_x);
 	return (0);
 }

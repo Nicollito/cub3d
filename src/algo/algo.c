@@ -52,21 +52,19 @@ static void	write_column(t_sprites sprite, t_wall wall, t_calc data, int column)
 	}
 }
 
-void	raycasting(t_cube *cube)
+void	raycasting(t_color *color, t_sprites sprites, t_algo algo)
 {
 	int			column;
 	t_wall		wall;
 	t_calc		data;
-	t_sprites	sprites;
 
 	column = -1;
 	ft_memset(&wall, 0, sizeof(t_wall));
 	ft_memset(&data, 0, sizeof(t_calc));
-	sprites = cube->sprites;
-	print_backgound(cube->config.color, sprites.frame.data);
+	print_backgound(color, sprites.frame.data);
 	while (++column < WINDOW_WIDTH)
 	{
-		get_write_value(cube, &wall, &data, column);
+		get_write_value(algo, &wall, &data, column);
 		write_column(sprites, wall, data, column);
 	}
 }

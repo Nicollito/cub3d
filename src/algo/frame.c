@@ -30,9 +30,20 @@ static void	frame_per_second(void)
 	}
 }
 
+void	set_algo(t_cube *cube, t_algo *algo)
+{
+	algo->character = cube->character;
+	algo->ray_base_x = cube->ray_base_x;
+	algo->map = cube->map;
+	algo->dist_proj = cube->dist_proj;
+}
+
 int	print_frame_to_window(t_cube *cube)
 {
-	raycasting(cube);
+	t_algo	algo;
+
+	set_algo(cube, &algo);
+	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
 		cube->sprites.frame.mlx_ptr, 0, 0);
 	frame_per_second();

@@ -78,18 +78,19 @@ static void	set_data(t_char character, t_calc *data, double ray_base_x)
 {
 	data->ray_x = character.x;
 	data->ray_y = character.y;
-	data->ray_dir_x = ray_base_x * cos(character.orientation) - RAY_BASE_Y * sin(character.orientation);
-	data->ray_dir_y = ray_base_x * sin(character.orientation) + RAY_BASE_Y * cos(character.orientation);
+	data->ray_dir_x = ray_base_x * cos(character.orientation)
+		- RAY_BASE_Y * sin(character.orientation);
+	data->ray_dir_y = ray_base_x * sin(character.orientation)
+		+ RAY_BASE_Y * cos(character.orientation);
 }
 
-void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column)
+void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
 {
 	double	len;
 
-	set_data(cube->character, data, cube->ray_base_x[column]);
-	len = ray_len(data, wall, cube->map);
-	wall->height = (int)(cube->dist_proj / len);
-	// wall->height = WINDOW_HEIGHT / len;
+	set_data(algo.character, data, algo.ray_base_x[column]);
+	len = ray_len(data, wall, algo.map);
+	wall->height = (int)(algo.dist_proj / len);
 	wall->draw_start = (WINDOW_HEIGHT / 2) - (wall->height / 2);
 	if (wall->draw_start < 0)
 		wall->draw_start = 0;

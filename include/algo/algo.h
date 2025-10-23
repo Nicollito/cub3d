@@ -26,18 +26,21 @@ typedef struct calculator
 
 typedef struct algo
 {
-	
-}		t_algo;
+	t_char		character;
+	double		*ray_base_x;
+	char		**map;
+	double		dist_proj;
+}				t_algo;
 
 /* ------------------algo/------------------ */
 
 // algo.c
-void	raycasting(t_cube *cube);
+void	raycasting(t_color *color, t_sprites sprites, t_algo algo);
 
 // background.c
 void	print_backgound(t_color *color, t_img_data image);
 
 // setup.c
-void	get_write_value(t_cube *cube, t_wall *wall, t_calc *data, int column);
+void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column);
 
 #endif
