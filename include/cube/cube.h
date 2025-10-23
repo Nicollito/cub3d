@@ -9,7 +9,7 @@
 # define PI 3.14159265358979323846
 # define FOV 60
 # define NB_TEXTURES 4
-
+/* 
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -19,8 +19,8 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
-
-/* # define KEY_W 122
+ */
+# define KEY_W 122
 # define KEY_A 113
 # define KEY_S 115
 # define KEY_D 100
@@ -28,7 +28,7 @@
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
-# define KEY_ESC 65307 */
+# define KEY_ESC 65307
 
 typedef enum e_texture_type
 {
@@ -93,6 +93,16 @@ typedef struct s_config
 	t_color		color[2];
 }				t_config;
 
+typedef struct	s_keys
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}		t_keys;
+
 typedef struct cube
 {
 	void		*mlx;
@@ -106,6 +116,7 @@ typedef struct cube
 	char		**textures;
 	double		dist_proj;
 	double		fov;
+	t_keys		keys;
 }				t_cube;
 
 int	print_frame_to_window(t_cube *cube);

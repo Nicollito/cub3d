@@ -1,78 +1,69 @@
-#include "moves.h"
+#include "../moves/moves.h"
 #include "parsing.h"
 #include <math.h>
 #include <stdio.h>
 #include "mlx.h"
 
-int	close_window(t_cube *cube)
-{
-	free_cube(cube);
-	exit(0);
-}
-
-void	move_character(t_cube *cube, int forward, double move_speed)
+void	move_character(t_cube *cube, double dx, double dy)
 {
 	double	new_x;
 	double	new_y;
 
-	new_x = cube->character.x + cos(cube->character.orientation)
-		* move_speed * forward;
-	new_y = cube->character.y + sin(cube->character.orientation)
-		* move_speed * forward;
-	if (cube->map[(int)(new_y + 0.1)][(int)cube->character.x] != '1' &&
-		cube->map[(int)(new_y - 0.1)][(int)cube->character.x] != '1')
-		cube->character.y = new_y;
-	if (cube->map[(int)cube->character.y][(int)(new_x + 0.1)] != '1' &&
-		cube->map[(int)cube->character.y][(int)(new_x - 0.1)] != '1')
+	new_x = cube->character.x + dx;
+	new_y = cube->character.y + dy;
+	if (is_valid_position(cube, new_x, cube->character.y))
 		cube->character.x = new_x;
+	if (is_valid_position(cube, cube->character.x, new_y))
+		cube->character.y = new_y;
 }
 
-void	strafe_character(t_cube *cube, int direction, double move_speed)
+void	move(t_cube *cube, int forward, double move_speed)
 {
-	double	strafe_x;
-	double	strafe_y;
+	double	dx;
+	double	dy;
 
-	strafe_x = cube->character.x - sin(cube->character.orientation) * move_speed * direction;
-	strafe_y = cube->character.y + cos(cube->character.orientation) * move_speed * direction;
-	
-	if (cube->map[(int)(strafe_y + 0.1)][(int)cube->character.x] != '1' &&
-		cube->map[(int)(strafe_y - 0.1)][(int)cube->character.x] != '1')
-		cube->character.y = strafe_y;
-	if (cube->map[(int)cube->character.y][(int)(strafe_x + 0.1)] != '1' &&
-		cube->map[(int)cube->character.y][(int)(strafe_x - 0.1)] != '1')
-		cube->character.x = strafe_x;
+	dx = cos(cube->character.orientation) * move_speed * forward;
+	dy = sin(cube->character.orientation) * move_speed * forward;
+	move_character(cube, dx, dy);
 }
 
-int	handle_keypress(int keycode, t_cube *cube)
+void	strafe(t_cube *cube, int direction, double move_speed)
+{
+	double	dx;
+	double	dy;
+
+	dx = -sin(cube->character.orientation) * move_speed * direction;
+	dy = cos(cube->character.orientation) * move_speed * direction;
+	move_character(cube, dx, dy);
+}
+
+void	rotate(t_cube *cube, int direction, double rot_speed)
+{
+	cube->character.orientation += direction * rot_speed;
+	if (cube->character.orientation <= PI * 0.5)
+		cube->character.orientation += 2 * PI;
+	else if (cube->character.orientation >= (2 * PI + PI * 0.5))
+		cube->character.orientation -= 2 * PI;
+}
+
+int	update_moves(t_cube *cube)
 {
 	double	move_speed;
+	double	rot_speed;
 
 	move_speed = 0.05;
-	if (keycode == KEY_W)
-		move_character(cube, 1, move_speed);
-	if (keycode == KEY_A)
-		strafe_character(cube, -1, move_speed);
-	if (keycode == KEY_LEFT)
-	{
-		cube->character.orientation -= move_speed;
-		if (cube->character.orientation <= PI * 0.5)
-			cube->character.orientation += (2 * PI);
-	}
-	if (keycode == KEY_S)
-		move_character(cube, -1, move_speed);
-	if (keycode == KEY_RIGHT)
-	{
-		cube->character.orientation += move_speed;
-		if (cube->character.orientation >= (2 * PI + PI * 0.5))
-			cube->character.orientation -= (2 * PI);
-	}
-	if (keycode == KEY_D)
-		strafe_character(cube, 1, move_speed);
-	else if (keycode == KEY_ESC)
-		close_window(cube);
-/* 	printf("x:[%f] - y:[%f] - orientation[%f]\n", cube->character.x,
-		cube->character.y, cube->character.orientation); */
-/* 	raycasting(cube);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, cube->sprites.frame.mlx_ptr, 0, 0); */
+	rot_speed = 0.03;
+	if (cube->keys.w == 1)
+		move(cube, 1, move_speed);
+	if (cube->keys.s == 1)
+		move(cube, -1, move_speed);
+	if (cube->keys.a == 1)
+		strafe(cube, -1, move_speed);
+	if (cube->keys.d == 1)
+		strafe(cube, 1, move_speed);
+	if (cube->keys.left == 1)
+		rotate(cube, -1, rot_speed);
+	if (cube->keys.right == 1)
+		rotate(cube, 1, rot_speed);
 	return (0);
 }

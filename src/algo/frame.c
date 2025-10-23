@@ -3,7 +3,8 @@
 #include "mlx.h"
 #include <sys/time.h>
 #include <stdio.h>
-
+#include "../moves/moves.h"
+/* 
 static int	second_past(void)
 {
 	static int		last_second = 0;
@@ -28,13 +29,14 @@ static void	frame_per_second(void)
 		printf("FPS [%d]\n", frames);
 		frames = 0;
 	}
-}
+} */
 
 int	print_frame_to_window(t_cube *cube)
 {
+	update_moves(cube);
 	raycasting(cube);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
 		cube->sprites.frame.mlx_ptr, 0, 0);
-	frame_per_second();
+	//frame_per_second();
 	return (0);
 }

@@ -52,10 +52,10 @@ static double	ray_len(t_cube *cube, t_calc *data, t_wall *wall, double angle)
 {
 	int		x;
 	int		y;
-	int		way;
+	//int		way;
 	double	res;
 
-	way = 1;
+	//way = 1;
 	res = 0;
 	while (1)
 	{

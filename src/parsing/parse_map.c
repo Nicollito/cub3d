@@ -2,7 +2,7 @@
 
 void	free_tmp_stack(t_list *list)
 {
-	t_list *tmp_list;
+	t_list	*tmp_list;
 
 	while (list)
 	{
@@ -51,7 +51,7 @@ void	build_map(t_cube *cube, char *line, int fd)
 	i = 0;
 	while (tmp_map)
 	{
-		tmp = tmp_map->next; 
+		tmp = tmp_map->next;
 		fill_map_line(cube, tmp_map, i);
 		i++;
 		free(tmp_map->content);

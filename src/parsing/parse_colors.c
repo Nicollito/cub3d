@@ -62,10 +62,8 @@ void	parse_color_line(t_cube *cube, char *line)
 {
 	char			**color;
 	t_color_type	type;
-	int				i;
 	int				count;
 
-	i = 0;
 	type = identify_color_type(line);
 	if (type == INVALID_COLOR)
 		ft_error(cube, "Invalid color identifier");
