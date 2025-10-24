@@ -13,7 +13,8 @@ CFLAGS += 										\
 					-Iinclude/error				\
 					-Iinclude/init				\
 					-Iinclude/parsing			\
-					-Iinclude/moves
+					-Iinclude/moves				\
+					-Iinclude/cleanup
 DFLAGS = -MMD -MF
 LDFLAGS = -Lmlx-linux -Lmlx -Imlx -L/usr/lib -lX11 -lXext -lm -lz
 LIB = libft/libft.a
@@ -30,7 +31,8 @@ SRC_DIR 		=										\
 						init							\
 						main							\
 						parsing							\
-						moves
+						moves							\
+						cleanup
 algo_SRCS		=										\
 						algo.c							\
 						background.c					\
@@ -51,7 +53,11 @@ parsing_SRCS	=										\
 						utils_parsing.c					\
 						validate_map.c
 moves_SRCS		=										\
-						moves.c
+						moves.c							\
+						collisions.c					\
+						events.c
+cleanup_SRCS		=										\
+						cleanup.c
 SRCS =	$(foreach dir,$(SRC_DIR), $(addprefix $(SRC)/$(dir)/,$($(dir)_SRCS)))
 #-----------------------------------OBJECTS-----------------------------------#
 OBJ_DIR = 											\

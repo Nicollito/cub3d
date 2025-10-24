@@ -42,8 +42,8 @@ void	validate_map_content_closure(t_cube *cube)
 
 void	fill_character_position(t_cube *cube, char **map, int i, int j)
 {
-	cube->character.x = j;
-	cube->character.y = i;
+	cube->character.x = j + 0.5;
+	cube->character.y = i + 0.5;
 	cube->character.orientation = get_orientation_angle(map[i][j]);
 }
 

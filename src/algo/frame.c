@@ -3,6 +3,7 @@
 #include "mlx.h"
 #include <sys/time.h>
 #include <stdio.h>
+#include "../moves/moves.h"
 
 static int	second_past(void)
 {
@@ -43,6 +44,7 @@ int	print_frame_to_window(t_cube *cube)
 	t_algo	algo;
 
 	set_algo(cube, &algo);
+	update_moves(cube);
 	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
 		cube->sprites.frame.mlx_ptr, 0, 0);
