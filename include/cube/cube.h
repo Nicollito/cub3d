@@ -20,7 +20,7 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
- */
+/* 
 # define KEY_W 122
 # define KEY_A 113
 # define KEY_S 115
@@ -30,7 +30,7 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
-
+ */
 typedef enum e_texture_type
 {
 	INVALID_TEXTURE = -1,

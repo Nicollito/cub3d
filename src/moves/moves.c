@@ -22,8 +22,9 @@ void	move(t_cube *cube, int forward, double move_speed)
 	double	dx;
 	double	dy;
 
-	dx = cos(cube->character.orientation) * move_speed * forward;
-	dy = sin(cube->character.orientation) * move_speed * forward;
+
+	dx = sin(cube->character.orientation) * move_speed * forward;
+	dy = -cos(cube->character.orientation) * move_speed * forward;
 	move_character(cube, dx, dy);
 }
 
@@ -32,8 +33,8 @@ void	strafe(t_cube *cube, int direction, double move_speed)
 	double	dx;
 	double	dy;
 
-	dx = -sin(cube->character.orientation) * move_speed * direction;
-	dy = cos(cube->character.orientation) * move_speed * direction;
+	dx = cos(cube->character.orientation) * move_speed * direction;
+	dy = sin(cube->character.orientation) * move_speed * direction;
 	move_character(cube, dx, dy);
 }
 

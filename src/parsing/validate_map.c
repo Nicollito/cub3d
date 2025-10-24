@@ -3,13 +3,13 @@
 double	get_orientation_angle( char c)
 {
 	if (c == 'E')
-		return (PI * 2);
-	else if (c == 'N')
-		return (PI * 1.5);
-	else if (c == 'W')
-		return (PI);
-	else if (c == 'S')
 		return (PI * 0.5);
+	else if (c == 'N')
+		return (PI * 2);
+	else if (c == 'W')
+		return (PI * 1.5);
+	else if (c == 'S')
+		return (PI);
 	return (-1);
 }
 
@@ -24,7 +24,7 @@ void	validate_map_content_closure(t_cube *cube)
 		x = 0;
 		while (cube->map[y][x])
 		{
-			if ((cube->map[y][x]) == 0
+			if (cube->map[y][x] == '0'
 			|| is_player_symbol(cube->map[y][x]) == 0)
 			{
 				if (y == 0 || y == cube->y_max - 1

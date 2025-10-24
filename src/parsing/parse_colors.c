@@ -26,11 +26,11 @@ int	is_numeric_string(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] < 0 || str[i] > 9)
-			return (0);
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	parse_rgb(t_cube *cube, char **color, t_color_type type)
