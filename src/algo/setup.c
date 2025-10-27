@@ -2,6 +2,19 @@
 #include "algo.h"
 #include <math.h>
 
+/**
+ * @brief Computes the next step along a ray for DDA traversal.
+ *
+ * This function calculates the distance to the next vertical or horizontal
+ * grid line along the ray and determines which side will be hit first. The
+ * step size along the ray is stored in `data->step`, and the hit side is
+ * returned through `side`.
+ *
+ * @param data Pointer to the calculation structure with ray position and
+ * direction.
+ * @param side Pointer to the side variable to store whether the next hit is
+ * HORIZONTAL or VERTICAL.
+ */
 static void	set_step(t_calc *data, t_side *side)
 {
 	double	line;
@@ -30,6 +43,17 @@ static void	set_step(t_calc *data, t_side *side)
 	}
 }
 
+/**
+ * @brief Determines the wall texture to use based on the ray direction and
+ * wall side.
+ *
+ * This function sets the `texture` field of a wall depending on whether the
+ * wall was hit on a vertical or horizontal side, and the direction of the
+ * ray that hit it.
+ *
+ * @param wall Pointer to the wall structure to update.
+ * @param data Calculation data containing ray direction information.
+ */
 static void	set_texture_orientation(t_wall *wall, t_calc data)
 {
 	if (wall->side == VERTICAL)
@@ -48,6 +72,19 @@ static void	set_texture_orientation(t_wall *wall, t_calc data)
 	}
 }
 
+/**
+ * @brief Casts a ray and computes its length until it hits a wall.
+ *
+ * This function performs DDA stepping along a ray until it intersects a wall
+ * tile in the map. It also sets the texture orientation of the wall based on
+ * the ray direction and returns the total distance traveled by the ray.
+ *
+ * @param data Pointer to calculation data containing ray start and direction.
+ * @param wall Pointer to the wall structure to update side and texture info.
+ * @param algo Structure containing the map, its size, and other raycasting
+ * parameters.
+ * @return Distance from the ray origin to the wall hit.
+ */
 static double	ray_len(t_calc *data, t_wall *wall, t_algo algo)
 {
 	int		x;
@@ -76,6 +113,17 @@ static double	ray_len(t_calc *data, t_wall *wall, t_algo algo)
 	return (res);
 }
 
+/**
+ * @brief Initializes ray data for a character and a given column.
+ *
+ * This function sets the starting position and direction of a ray based on
+ * the character's position and orientation. The horizontal base offset
+ * determines the direction within the field of view.
+ *
+ * @param character The character structure with position and orientation.
+ * @param data Pointer to the calculation structure to fill.
+ * @param ray_base_x The horizontal base offset for this ray.
+ */
 static void	set_data(t_char character, t_calc *data, double ray_base_x)
 {
 	data->ray_x = character.x;

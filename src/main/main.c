@@ -19,6 +19,6 @@ int	main(int ac, char **av)
 	mlx_hook(cube->mlx_window, 2, 1L << 0, key_press, cube);
 	mlx_hook(cube->mlx_window, 3, 1L << 1, key_release, cube);
 	mlx_hook(cube->mlx_window, 17, 0, close_window, cube);
-	mlx_loop_hook(cube->mlx, print_frame_to_window, cube);
+	mlx_loop_hook(cube->mlx, render_frame, cube);
 	mlx_loop(cube->mlx);
 }

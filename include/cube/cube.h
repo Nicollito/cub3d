@@ -94,7 +94,7 @@ typedef struct s_config
 	t_color		color[2];
 }				t_config;
 
-typedef struct	s_keys
+typedef struct s_keys
 {
 	int	w;
 	int	a;
@@ -121,6 +121,16 @@ typedef struct cube
 	double		ray_base_x[WINDOW_WIDTH];
 }				t_cube;
 
-int	print_frame_to_window(t_cube *cube);
+/**
+ * @brief Updates the game state and renders a frame to the window.
+ *
+ * This function updates the character movement, performs raycasting to
+ * generate the 3D scene in the frame buffer, and then displays the frame
+ * in the MiniLibX window. It also prints the frames per second to the console.
+ *
+ * @param cube Pointer to the main cube structure containing all game data.
+ * @return Always returns 0.
+ */
+int	render_frame(t_cube *cube);
 
 #endif

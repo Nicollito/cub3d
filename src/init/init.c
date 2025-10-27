@@ -82,6 +82,16 @@ static int	init_wall_textures(t_cube *cube)
 	return (0);
 }
 
+/**
+ * @brief Precomputes the horizontal base offsets for ray directions.
+ *
+ * This function fills an array with the X offsets for each column of the screen
+ * so that rays are evenly spaced according to the field of view. The formula
+ * centers the rays around zero and applies a scaling factor based on the FOV.
+ *
+ * @param fov The field of view in radians.
+ * @param ray_base_x Array to store the precomputed X offsets for each column.
+ */
 static void	set_base_x(double fov, double *ray_base_x)
 {
 	int		i;

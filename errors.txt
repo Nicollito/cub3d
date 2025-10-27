@@ -3,7 +3,7 @@ x [12.612279]  y [8.898457]  o[6.433185]
 ==263834==    at 0x11072C: ray_len (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x1108B9: get_write_value (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x10FE09: raycasting (in /home/lulussi/42/cub3d/cub3D)
-==263834==    by 0x1103C3: print_frame_to_window (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1103C3: render_frame (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x114294: mlx_loop (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x110E52: main (in /home/lulussi/42/cub3d/cub3D)
 ==263834==  Address 0x4d27480 is 0 bytes after a block of size 16 alloc'd
@@ -18,7 +18,7 @@ x [12.612279]  y [8.898457]  o[6.433185]
 ==263834==    at 0x110721: ray_len (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x1108B9: get_write_value (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x10FE09: raycasting (in /home/lulussi/42/cub3d/cub3D)
-==263834==    by 0x1103C3: print_frame_to_window (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1103C3: render_frame (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x114294: mlx_loop (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x110E52: main (in /home/lulussi/42/cub3d/cub3D)
 ==263834==  Address 0x4d26f18 is 8 bytes before a block of size 120 alloc'd
@@ -34,7 +34,7 @@ x [12.612279]  y [8.898457]  o[6.433185]
 ==263834==    at 0x11072C: ray_len (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x1108B9: get_write_value (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x10FE09: raycasting (in /home/lulussi/42/cub3d/cub3D)
-==263834==    by 0x1103C3: print_frame_to_window (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1103C3: render_frame (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x114294: mlx_loop (in /home/lulussi/42/cub3d/cub3D)
 ==263834==    by 0x110E52: main (in /home/lulussi/42/cub3d/cub3D)
 ==263834==  If you believe this happened as a result of a stack

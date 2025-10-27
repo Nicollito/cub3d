@@ -1,6 +1,17 @@
 #include "cube.h"
 #include "algo.h"
 
+/**
+ * @brief Sets a pixel in an image to a specified color.
+ *
+ * This function converts a color structure (RGB) into a 24-bit integer value
+ * according to the image's endian format, then writes it into the image memory
+ * at the given offset.
+ *
+ * @param color Pointer to the color structure containing RGB values.
+ * @param image The image data structure where the pixel will be set.
+ * @param offset The pixel index in the image memory array.
+ */
 static void	color_pixel(t_color *color, t_img_data image, int offset)
 {
 	int	rgba;
@@ -12,7 +23,7 @@ static void	color_pixel(t_color *color, t_img_data image, int offset)
 	((int *)image.mem)[offset] = rgba;
 }
 
-void	print_backgound(t_color *color, t_img_data image)
+void	fill_background(t_color *color, t_img_data image)
 {
 	int				x;
 	int				y;
