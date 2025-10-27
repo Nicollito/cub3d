@@ -37,6 +37,8 @@ void	set_algo(t_cube *cube, t_algo *algo)
 	algo->ray_base_x = cube->ray_base_x;
 	algo->map = cube->map;
 	algo->dist_proj = cube->dist_proj;
+	algo->y_max = cube->y_max;
+	algo->x_max = cube->x_max;
 }
 
 int	print_frame_to_window(t_cube *cube)

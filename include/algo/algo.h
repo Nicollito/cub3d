@@ -30,6 +30,8 @@ typedef struct algo
 	double		*ray_base_x;
 	char		**map;
 	double		dist_proj;
+	int			y_max;
+	int			x_max;
 }				t_algo;
 
 /* ------------------algo/------------------ */
