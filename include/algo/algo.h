@@ -70,7 +70,6 @@ void	fill_background(t_color *color, t_img_data image);
 
 // setup.c
 
-
 /**
  * @brief Calculates ray intersection and wall projection for a screen column.
  *

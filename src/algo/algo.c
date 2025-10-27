@@ -62,10 +62,14 @@ static int	texture_coord_x(t_calc data, t_side side, int text_width)
  * index specifies which vertical line on the frame to draw. Texture coordinates
  * are calculated to match the wall's height and position.
  *
- * @param sprite The sprite structure containing textures and the frame buffer.
- * @param wall The wall structure containing height, draw start, and texture info.
- * @param data Calculation data containing ray intersection info and step size.
- * @param column The column index in the frame where the wall slice will be drawn.
+ * @param sprite The sprite structure containing textures and the frame
+ * buffer.
+ * @param wall The wall structure containing height, draw start, and texture
+ * info.
+ * @param data Calculation data containing ray intersection info and step
+ * size.
+ * @param column The column index in the frame where the wall slice will be
+ * drawn.
  */
 static void	write_column(t_sprites sprite, t_wall wall, t_calc data, int column)
 {
