@@ -22,7 +22,6 @@ void	move(t_cube *cube, int forward, double move_speed)
 	double	dx;
 	double	dy;
 
-
 	dx = sin(cube->character.orientation) * move_speed * forward;
 	dy = -cos(cube->character.orientation) * move_speed * forward;
 	move_character(cube, dx, dy);
@@ -66,5 +65,6 @@ int	update_moves(t_cube *cube)
 		rotate(cube, -1, rot_speed);
 	if (cube->keys.right == 1)
 		rotate(cube, 1, rot_speed);
+	printf("x [%f]  y [%f]  o[%f]\n", cube->character.x, cube->character.y, cube->character.orientation);
 	return (0);
 }

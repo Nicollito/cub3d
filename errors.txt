@@ -1,0 +1,61 @@
+x [12.612279]  y [8.898457]  o[6.433185]
+==263834== Invalid read of size 1
+==263834==    at 0x11072C: ray_len (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1108B9: get_write_value (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x10FE09: raycasting (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1103C3: print_frame_to_window (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x114294: mlx_loop (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x110E52: main (in /home/lulussi/42/cub3d/cub3D)
+==263834==  Address 0x4d27480 is 0 bytes after a block of size 16 alloc'd
+==263834==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==263834==    by 0x11130E: fill_map_line (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x111529: build_map (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1119CC: parse_cub_file (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x111B48: parse_cub (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x110D95: main (in /home/lulussi/42/cub3d/cub3D)
+==263834== 
+==263834== Invalid read of size 8
+==263834==    at 0x110721: ray_len (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1108B9: get_write_value (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x10FE09: raycasting (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1103C3: print_frame_to_window (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x114294: mlx_loop (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x110E52: main (in /home/lulussi/42/cub3d/cub3D)
+==263834==  Address 0x4d26f18 is 8 bytes before a block of size 120 alloc'd
+==263834==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==263834==    by 0x1114CA: build_map (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1119CC: parse_cub_file (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x111B48: parse_cub (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x110D95: main (in /home/lulussi/42/cub3d/cub3D)
+==263834== 
+==263834== 
+==263834== Process terminating with default action of signal 11 (SIGSEGV)
+==263834==  Access not within mapped region at address 0x11
+==263834==    at 0x11072C: ray_len (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1108B9: get_write_value (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x10FE09: raycasting (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x1103C3: print_frame_to_window (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x114294: mlx_loop (in /home/lulussi/42/cub3d/cub3D)
+==263834==    by 0x110E52: main (in /home/lulussi/42/cub3d/cub3D)
+==263834==  If you believe this happened as a result of a stack
+==263834==  overflow in your program's main thread (unlikely but
+==263834==  possible), you can try to increase the size of the
+==263834==  main thread stack using the --main-stacksize= flag.
+==263834==  The main thread stack size used in this run was 8388608.
+==263834== 
+==263834== HEAP SUMMARY:
+==263834==     in use at exit: 105,334 bytes in 143 blocks
+==263834==   total heap usage: 4,761 allocs, 4,618 frees, 245,662 bytes allocated
+==263834== 
+==263834== LEAK SUMMARY:
+==263834==    definitely lost: 0 bytes in 0 blocks
+==263834==    indirectly lost: 0 bytes in 0 blocks
+==263834==      possibly lost: 0 bytes in 0 blocks
+==263834==    still reachable: 105,334 bytes in 143 blocks
+==263834==         suppressed: 0 bytes in 0 blocks
+==263834== Rerun with --leak-check=full to see details of leaked memory
+==263834== 
+==263834== Use --track-origins=yes to see where uninitialised values come from
+==263834== For lists of detected and suppressed errors, rerun with: -s
+==263834== ERROR SUMMARY: 7 errors from 3 contexts (suppressed: 0 from 0)
+Erreur de segmentation (core dumped)
