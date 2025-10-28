@@ -22,33 +22,6 @@ static void	set_step(t_calc *data, t_side *side)
 	double	dist_x;
 	double	dist_y;
 
-	// printf("ray_x [%f] ray_y [%f]\n", data->ray_x, data->ray_y);
-	if (data->ray_dir_x > 0)
-		line = (int)(data->ray_x) + 1;
-	else
-		line = (int)data->ray_x;
-	dist_x = (line - data->ray_x) / data->ray_dir_x;
-	if (data->ray_dir_y > 0)
-		line = (int)(data->ray_y) + 1;
-	else
-		line = (int)data->ray_y;
-	dist_y = (line - data->ray_y) / data->ray_dir_y;
-	// printf("dist_x [%f] dist_y [%f]\n", dist_x, dist_y);
-	if ((dist_y < dist_x && dist_y > 0) || dist_x <= 0)
-	{
-		*side = VERTICAL;
-		data->step = dist_y;
-	}
-	else
-	{
-		*side = HORIZONTAL;
-		data->step = dist_x;
-	}
-	// printf("step [%f]\n", data->step);
-/* 	double line;
-	double dist_x;
-	double dist_y;
-
 	if (data->ray_dir_x > 0)
 		line = floor(data->ray_x) + 1;
 	else
@@ -68,7 +41,7 @@ static void	set_step(t_calc *data, t_side *side)
 	{
 		*side = HORIZONTAL;
 		data->step = dist_x;
-	} */
+	}
 }
 
 /**
