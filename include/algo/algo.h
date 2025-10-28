@@ -9,8 +9,14 @@ typedef enum e_side
 
 typedef struct wall
 {
+	int				column;
+	int				line;
+	int				text_x;
+	double			text_y;
+	double			text_step;
 	int				height;
 	int				draw_start;
+	int				draw_end;
 	t_side			side;
 	t_texture_type	texture;
 }					t_wall;
@@ -36,37 +42,26 @@ typedef struct algo
 
 /* ------------------algo/------------------ */
 
-// algo.c
+// render.c
 
 /**
- * @brief Performs the main raycasting loop to render the 3D scene.
+ * @brief Renders a full column (wall, ceiling, and floor) into the frame.
  *
- * This function iterates over each vertical screen column, casts a ray from
- * the player's position, computes wall intersections, determines wall height
- * and texture, and draws the corresponding column in the frame buffer. The
- * background (ceiling and floor) is filled before rendering walls.
+ * This function draws a complete vertical column on the screen, including the
+ * ceiling, wall, and floor. Wall pixels are taken from the corresponding wall
+ * texture, while ceiling and floor pixels use their solid colors. Texture
+ * coordinates are calculated to match wall height and perspective.
  *
- * @param color Array of colors for ceiling and floor.
- * @param sprites Structure containing textures and the frame buffer.
- * @param algo Structure containing the map, character, projection distance,
- * and precomputed ray base offsets.
+ * @param sprite The sprite structure containing textures and the frame
+ * buffer.
+ * @param wall The wall structure containing texture coordinates, draw limits,
+ * and height.
+ * @param data Calculation data containing ray intersection info and step
+ * values.
+ * @param color The color array containing ceiling and floor RGB values.
  */
-void	raycasting(t_color *color, t_sprites sprites, t_algo algo);
-
-// background.c
-
-/**
- * @brief Fills the entire frame with a background color for ceiling and floor.
- *
- * This function iterates over all pixels of the frame. The top half of the
- * screen is filled with the ceiling color and the bottom half with the floor
- * color. It uses `color_pixel` to set each individual pixel.
- *
- * @param color Array of colors, where CEILING and FLOOR indices define the
- * background colors.
- * @param image The image data structure to be filled with background colors.
- */
-void	fill_background(t_color *color, t_img_data image);
+void	write_column(t_sprites sprite, t_wall wall, t_calc data,
+			t_color *color);
 
 // setup.c
 

@@ -2,6 +2,7 @@
 #include "algo.h"
 #include <math.h>
 
+#include <stdio.h>
 /**
  * @brief Computes the next step along a ray for DDA traversal.
  *
@@ -20,6 +21,33 @@ static void	set_step(t_calc *data, t_side *side)
 	double	line;
 	double	dist_x;
 	double	dist_y;
+
+	// printf("ray_x [%f] ray_y [%f]\n", data->ray_x, data->ray_y);
+	if (data->ray_dir_x > 0)
+		line = (int)(data->ray_x) + 1;
+	else
+		line = (int)data->ray_x;
+	dist_x = (line - data->ray_x) / data->ray_dir_x;
+	if (data->ray_dir_y > 0)
+		line = (int)(data->ray_y) + 1;
+	else
+		line = (int)data->ray_y;
+	dist_y = (line - data->ray_y) / data->ray_dir_y;
+	// printf("dist_x [%f] dist_y [%f]\n", dist_x, dist_y);
+	if ((dist_y < dist_x && dist_y > 0) || dist_x <= 0)
+	{
+		*side = VERTICAL;
+		data->step = dist_y;
+	}
+	else
+	{
+		*side = HORIZONTAL;
+		data->step = dist_x;
+	}
+	// printf("step [%f]\n", data->step);
+/* 	double line;
+	double dist_x;
+	double dist_y;
 
 	if (data->ray_dir_x > 0)
 		line = floor(data->ray_x) + 1;
@@ -40,7 +68,7 @@ static void	set_step(t_calc *data, t_side *side)
 	{
 		*side = HORIZONTAL;
 		data->step = dist_x;
-	}
+	} */
 }
 
 /**
@@ -126,12 +154,17 @@ static double	ray_len(t_calc *data, t_wall *wall, t_algo algo)
  */
 static void	set_data(t_char character, t_calc *data, double ray_base_x)
 {
+	double	cos_char;
+	double	sin_char;
+
+	cos_char = cos(character.orientation);
+	sin_char = sin(character.orientation);
 	data->ray_x = character.x;
 	data->ray_y = character.y;
-	data->ray_dir_x = ray_base_x * cos(character.orientation)
-		- RAY_BASE_Y * sin(character.orientation);
-	data->ray_dir_y = ray_base_x * sin(character.orientation)
-		+ RAY_BASE_Y * cos(character.orientation);
+	data->ray_dir_x = ray_base_x * cos_char
+		- RAY_BASE_Y * sin_char;
+	data->ray_dir_y = ray_base_x * sin_char
+		+ RAY_BASE_Y * cos_char;
 }
 
 void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
@@ -142,6 +175,7 @@ void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
 	len = ray_len(data, wall, algo);
 	wall->height = (int)(algo.dist_proj / len);
 	wall->draw_start = (WINDOW_HEIGHT / 2) - (wall->height / 2);
+	wall->draw_end = wall->draw_start + wall->height;
 	if (wall->draw_start < 0)
 		wall->draw_start = 0;
 }

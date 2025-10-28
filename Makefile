@@ -34,8 +34,7 @@ SRC_DIR 		=										\
 						moves							\
 						cleanup
 algo_SRCS		=										\
-						algo.c							\
-						background.c					\
+						render.c						\
 						frame.c							\
 						setup.c
 error_SRCS		=										\
