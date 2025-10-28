@@ -28,7 +28,7 @@ int	check_line(char *s)
 	return (0);
 }
 
-char	*fill_line(int fd, char *stash)
+char	*fill_line(int fd, char *stash, int *error)
 {
 	ssize_t	b_read;
 	char	*res;
@@ -36,7 +36,7 @@ char	*fill_line(int fd, char *stash)
 
 	tmp = malloc(sizeof(char) * ft_strlen(stash) + 1);
 	if (!tmp)
-		return (NULL);
+		return (*error = -1, NULL);
 	ft_strcpy_until(tmp, stash, '\0');
 	b_read = 1;
 	while (b_read && !check_line(stash))
@@ -96,7 +96,7 @@ char	*get_my_line(char *line, char *buffer, char *stash)
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *error)
 {
 	static char	stash[MAX_FD][BUFFER_SIZE + 1];
 	char		*line;
@@ -108,18 +108,18 @@ char	*get_next_line(int fd)
 	{
 		buffer = malloc(sizeof(char) * ft_strlen(stash[fd]) + 1);
 		if (!buffer)
-			return (NULL);
+			return (*error = -1, NULL);
 		ft_strcpy_until(buffer, stash[fd], '\0');
 	}
 	else
-		buffer = fill_line(fd, stash[fd]);
+		buffer = fill_line(fd, stash[fd], error);
 	if (!buffer)
-		return (NULL);
+		return (*error = -1, NULL);
 	line = malloc(sizeof(char) * ft_strlen_until(buffer, '\n') + 1);
 	if (!line)
 	{
 		free(buffer);
-		return (NULL);
+		return (*error = -1, NULL);
 	}
 	line = get_my_line(line, buffer, stash[fd]);
 	return (line);

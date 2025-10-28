@@ -27,8 +27,8 @@
 # include "libft.h"
 
 char	*ft_strcpy_until(char *dest, char *src, char delim);
-char	*get_next_line(int fd);
-char	*fill_line(int fd, char *line);
+char	*get_next_line(int fd, int *error);
+char	*fill_line(int fd, char *line, int *error);
 char	*check_stash(char *stash);
 int		check_line(char *s);
 ssize_t	ft_strlen_until(char *s, char c);

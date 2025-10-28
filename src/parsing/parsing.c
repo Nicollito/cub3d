@@ -3,7 +3,7 @@
 #include "parsing.h"
 #include "error.h"
 
-void	validate_config_completeness(t_cube *cube)
+void	validate_config_completeness(t_cube *cube, char *line)
 {
 	int	i;
 
@@ -11,45 +11,56 @@ void	validate_config_completeness(t_cube *cube)
 	while (i < 4)
 	{
 		if (cube->config.textures[i] == NULL)
+		{
+			free(line);
 			ft_error(cube, "Missing texture");
+		}
 		i++;
 	}
 	if (cube->config.color[CEILING].is_set == 0
 		|| cube->config.color[FLOOR].is_set == 0)
-		ft_error(cube, "Missing color");
+		{
+			free(line);
+			ft_error(cube, "Missing color");
+		}
 }
 
-int	check_cub_extension(char *file)
+int	check_extension(char *path, char *ext)
 {
 	char	*current;
 
-	current = ft_strrchr(file, '.');
+	current = ft_strrchr(path, '.');
 	if (!current)
-		return (1);
-	if (ft_strncmp(current, ".cub", 5))
-		return (1);
+		return (-1);
+	if (ft_strncmp(current, ext, 5))
+		return (-1);
 	return (0);
 }
 
 void	parse_cub_file(t_cube *cube, char *file)
 {
-	int		fd;
 	char	*line;
+	int		error;
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	error = 0;
+	cube->fd_file = open(file, O_RDONLY);
+	if (cube->fd_file == -1)
 		ft_error(cube, "File doesn't exist");
-	line = get_next_line(fd);
+	line = get_next_line(cube->fd_file, &error);
+	if (error == -1)
+		ft_error(cube, "Get next line failed");
 	while (line && !is_map_line(line))
 	{
 		parse_config(cube, line);
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(cube->fd_file, &error);
+		if (error == -1)
+			ft_error(cube, "Get next line failed");
 	}
 	if (!is_map_line(line))
 		ft_error(cube, "The map seems empty");
-	validate_config_completeness(cube);
-	build_map(cube, line, fd);
+	validate_config_completeness(cube, line);
+	build_map(cube, line, cube->fd_file);
 	if (validate_map_content(cube, cube->map) == 1)
 		ft_error(cube, "Invalid character in map");
 	if (cube->character.orientation == -1)
@@ -66,7 +77,7 @@ t_cube	*parse_cub(char **av)
 		ft_error(cube, "Malloc failed");
 	*cube = (t_cube){0};
 	cube->character.orientation = -1;
-	if (check_cub_extension(av[1]))
+	if (check_extension(av[1], ".cub") == -1)
 		ft_error(cube, "Invalid name format");
 	parse_cub_file(cube, av[1]);
 	return (cube);

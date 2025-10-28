@@ -118,6 +118,7 @@ typedef struct cube
 	double		dist_proj;
 	double		fov;
 	t_keys		keys;
+	int			fd_file;
 	double		ray_base_x[WINDOW_WIDTH];
 }				t_cube;
 
