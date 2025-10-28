@@ -17,6 +17,10 @@ CFLAGS += 										\
 					-Iinclude/cleanup
 DFLAGS = -MMD -MF
 LDFLAGS = -Lmlx-linux -Lmlx -Imlx -L/usr/lib -lX11 -lXext -lm -lz
+OFLAGS = -O3
+ifeq ($(DEBUG_MODE),)
+CFLAGS += $(OFLAGS)
+endif
 LIB = libft/libft.a
 MLX = minilibx-linux/libmlx.a
 #------------------------------------DEBUG------------------------------------#

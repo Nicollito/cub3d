@@ -57,14 +57,14 @@ static void	print_fps(void)
  * @param cube Pointer to the main cube structure.
  * @param algo Pointer to the algorithm structure to initialize.
  */
-static void	set_algo(t_cube *cube, t_algo *algo)
+static void	set_algo(t_cube cube, t_algo *algo)
 {
-	algo->character = cube->character;
-	algo->ray_base_x = cube->ray_base_x;
-	algo->map = cube->map;
-	algo->dist_proj = cube->dist_proj;
-	algo->y_max = cube->y_max;
-	algo->x_max = cube->x_max;
+	algo->character = cube.character;
+	algo->ray_base_x = cube.ray_base_x;
+	algo->map = cube.map;
+	algo->dist_proj = cube.dist_proj;
+	algo->y_max = cube.y_max;
+	algo->x_max = cube.x_max;
 }
 
 /**
@@ -99,7 +99,7 @@ int	render_frame(t_cube *cube)
 {
 	t_algo	algo;
 
-	set_algo(cube, &algo);
+	set_algo(*cube, &algo);
 	update_moves(cube);
 	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
