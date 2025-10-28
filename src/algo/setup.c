@@ -2,7 +2,6 @@
 #include "algo.h"
 #include <math.h>
 
-#include <stdio.h>
 /**
  * @brief Computes the next step along a ray for DDA traversal.
  *
