@@ -1,8 +1,8 @@
 #ifndef MOVES_H
 # define MOVES_H
 
-#include "cube.h"
-#include <stdlib.h>
+# include <stdlib.h>
+# include "cube.h"
 
 /* ----- MOVES.C ----- */
 void	move_character(t_cube *cube, double dx, double dy);

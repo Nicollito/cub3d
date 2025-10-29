@@ -20,10 +20,11 @@ t_cube			*parse_cub(char **av);
 t_color_type	identify_color_type(char *line);
 int				count_tokens(char **color);
 int				is_numeric_string(char *str);
-void			parse_rgb(t_cube *cube, char **color, t_color_type type, char *line);
+void			parse_rgb(t_cube *cube, char **color, t_color_type type,
+					char *line);
 void			parse_color_line(t_cube *cube, char *line);
 
-/* ----- PARSE_CONFIG.C ----- */\
+/* ----- PARSE_CONFIG.C ----- */
 void			parse_config(t_cube *cube, char *line);
 
 /* ----- PARSE_MAP.C ----- */
@@ -49,7 +50,6 @@ void			validate_map_content_closure(t_cube *cube);
 void			fill_character_position(t_cube *cube, char **map, int i, int j);
 int				validate_map_content(t_cube *cube, char **map);
 int				validate_map_boundaries(char *line);
-
-void	        free_cube(t_cube *cube);
+void			free_cube(t_cube *cube);
 
 #endif

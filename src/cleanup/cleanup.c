@@ -20,7 +20,7 @@ void	free_tmp_map(t_list *tmp_map)
 {
 	t_list	*tmp;
 
-	while(tmp_map)
+	while (tmp_map)
 	{
 		tmp = tmp_map->next;
 		free(tmp_map->content);
