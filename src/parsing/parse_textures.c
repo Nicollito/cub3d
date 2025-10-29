@@ -1,9 +1,10 @@
 #include "parsing.h"
 
-static void	free_line_and_path(char *line, char *path)
+static void	textures_error(t_cube *cube, char *line, char *path, char *msg)
 {
 	free(line);
 	free(path);
+	ft_error(cube, msg);
 }
 
 t_texture_type	identify_texture_type(char *line)
@@ -26,27 +27,19 @@ void	parse_texture(t_cube *cube, char *line)
 	int				fd;
 
 	type = identify_texture_type(line);
-	if (type == INVALID_TEXTURE)
-		ft_error(cube, "Invalid texture identifier");
 	path = ft_strtrim(line + 2, " \n");
 	if (!path)
-		ft_error(cube, "Texture path missing");
-	if (check_extension(path, ".xpm") == -1)
 	{
-		free_line_and_path(line, path);
-		ft_error(cube, "Invalid texture name format");
+		free(line);
+		ft_error(cube, "Texture path missing");
 	}
+	if (check_extension(path, ".xpm") == -1)
+		textures_error(cube, line, path, "Invalid texture name format");
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-	{
-		free_line_and_path(line, path);
-		ft_error(cube, "Texture path doesn't exist");
-	}
+		textures_error(cube, line, path, "Texture path doesn't exist");
 	close(fd);
 	if (cube->config.textures[type] != NULL)
-	{
-		free_line_and_path(line, path);
-		ft_error(cube, "Texture defined multiple times");
-	}
+		textures_error(cube, line, path, "Texture defined multiple times");
 	cube->config.textures[type] = path;
 }

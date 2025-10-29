@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:18:19 by nimadela          #+#    #+#             */
-/*   Updated: 2025/02/19 10:02:03 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/29 10:13:42 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*gnl_error(int *error)
+{
+	*error = -1;
+	return (NULL);
+}
 
 char	*ft_strcpy_until(char *dest, char *src, char delim)
 {

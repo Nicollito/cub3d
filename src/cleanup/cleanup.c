@@ -3,12 +3,23 @@
 #include <unistd.h>
 #include "libft.h"
 
-void	free_tmp_map(t_list *tmp_map)
+void	free_tab(char **tab)
 {
-	int		i;
-	t_list	*tmp;
+	int	i;
 
 	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void	free_tmp_map(t_list *tmp_map)
+{
+	t_list	*tmp;
+
 	while(tmp_map)
 	{
 		tmp = tmp_map->next;

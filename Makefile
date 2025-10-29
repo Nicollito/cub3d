@@ -46,6 +46,7 @@ main_SRCS		=										\
 						main.c
 parsing_SRCS	=										\
 						parse_colors.c					\
+						parse_colors_utils.c			\
 						parse_config.c					\
 						parse_map.c						\
 						parse_textures.c				\

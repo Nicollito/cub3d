@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:17:53 by nimadela          #+#    #+#             */
-/*   Updated: 2025/02/19 10:01:51 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/29 09:54:50 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*fill_line(int fd, char *stash, int *error)
 
 	tmp = malloc(sizeof(char) * ft_strlen(stash) + 1);
 	if (!tmp)
-		return (*error = -1, NULL);
+		return (gnl_error(error));
 	ft_strcpy_until(tmp, stash, '\0');
 	b_read = 1;
 	while (b_read && !check_line(stash))
@@ -108,18 +108,18 @@ char	*get_next_line(int fd, int *error)
 	{
 		buffer = malloc(sizeof(char) * ft_strlen(stash[fd]) + 1);
 		if (!buffer)
-			return (*error = -1, NULL);
+			return (gnl_error(error));
 		ft_strcpy_until(buffer, stash[fd], '\0');
 	}
 	else
 		buffer = fill_line(fd, stash[fd], error);
 	if (!buffer)
-		return (*error = -1, NULL);
+		return (gnl_error(error));
 	line = malloc(sizeof(char) * ft_strlen_until(buffer, '\n') + 1);
 	if (!line)
 	{
 		free(buffer);
-		return (*error = -1, NULL);
+		return (gnl_error(error));
 	}
 	line = get_my_line(line, buffer, stash[fd]);
 	return (line);

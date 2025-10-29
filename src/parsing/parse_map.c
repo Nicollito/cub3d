@@ -1,6 +1,37 @@
 #include "parsing.h"
 #include "cleanup.h"
 
+static char	*safe_gnl(t_cube *cube, int fd, int *error, t_list *tmp_map)
+{
+	char	*line;
+
+	line = get_next_line(fd, error);
+	if (*error == -1)
+	{
+		free_tmp_map(tmp_map);
+		ft_error(cube, "Get next line failed");
+	}
+	return (line);
+}
+
+static void	fill_map(t_cube *cube, t_list *tmp_map)
+{
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	while (tmp_map)
+	{
+		tmp = tmp_map->next;
+		fill_map_line(cube, tmp_map, i);
+		free(tmp_map->content);
+		free(tmp_map);
+		i++;
+		tmp_map = tmp;
+	}
+	cube->map[i] = NULL;
+}
+
 void	fill_map_line(t_cube *cube, t_list *tmp_map, int i)
 {
 	size_t	len;
@@ -21,28 +52,16 @@ void	fill_map_line(t_cube *cube, t_list *tmp_map, int i)
 
 void	build_map(t_cube *cube, char *line, int fd)
 {
+	int		error;
 	t_list	*tmp_map;
-	t_list	*tmp;
-	int		i;
-	int 	error;
 
 	error = 0;
 	tmp_map = ft_lstnew(line);
-	line = get_next_line(fd, &error);
-	if (error == -1)
-	{
-		free_tmp_map(tmp_map);
-		ft_error(cube, "Get next line failed");
-	}
+	line = safe_gnl(cube, fd, &error, tmp_map);
 	while (line)
 	{
 		ft_lstadd_back(&tmp_map, ft_lstnew(line));
-		line = get_next_line(fd, &error);
-		if (error == -1)
-		{
-			free_tmp_map(tmp_map);
-			ft_error(cube, "Get next line failed");
-		}
+		line = safe_gnl(cube, fd, &error, tmp_map);
 	}
 	free(line);
 	cube->y_max = ft_lstsize(tmp_map);
@@ -53,17 +72,7 @@ void	build_map(t_cube *cube, char *line, int fd)
 		free_tmp_map(tmp_map);
 		ft_error(cube, "Malloc failed");
 	}
-	i = 0;
-	while (tmp_map)
-	{
-		tmp = tmp_map->next;
-		fill_map_line(cube, tmp_map, i);
-		free(tmp_map->content);
-		free(tmp_map);
-		i++;
-		tmp_map = tmp;
-	}
-	cube->map[i] = NULL;
+	fill_map(cube, tmp_map);
 }
 
 size_t	get_map_width(t_list *tmp_map)

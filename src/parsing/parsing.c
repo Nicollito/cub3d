@@ -3,6 +3,16 @@
 #include "parsing.h"
 #include "error.h"
 
+static char	*safe_gnl(t_cube *cube, int fd, int *error)
+{
+	char	*line;
+
+	line = get_next_line(fd, error);
+	if (*error == -1)
+		ft_error(cube, "Get next line failed");
+	return (line);
+}
+
 void	validate_config_completeness(t_cube *cube, char *line)
 {
 	int	i;
@@ -19,10 +29,10 @@ void	validate_config_completeness(t_cube *cube, char *line)
 	}
 	if (cube->config.color[CEILING].is_set == 0
 		|| cube->config.color[FLOOR].is_set == 0)
-		{
-			free(line);
-			ft_error(cube, "Missing color");
-		}
+	{
+		free(line);
+		ft_error(cube, "Missing color");
+	}
 }
 
 int	check_extension(char *path, char *ext)
@@ -46,16 +56,12 @@ void	parse_cub_file(t_cube *cube, char *file)
 	cube->fd_file = open(file, O_RDONLY);
 	if (cube->fd_file == -1)
 		ft_error(cube, "File doesn't exist");
-	line = get_next_line(cube->fd_file, &error);
-	if (error == -1)
-		ft_error(cube, "Get next line failed");
+	line = safe_gnl(cube, cube->fd_file, &error);
 	while (line && !is_map_line(line))
 	{
 		parse_config(cube, line);
 		free(line);
-		line = get_next_line(cube->fd_file, &error);
-		if (error == -1)
-			ft_error(cube, "Get next line failed");
+		line = safe_gnl(cube, cube->fd_file, &error);
 	}
 	if (!is_map_line(line))
 		ft_error(cube, "The map seems empty");

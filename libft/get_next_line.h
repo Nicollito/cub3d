@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:07:43 by nimadela          #+#    #+#             */
-/*   Updated: 2025/03/20 14:57:02 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/29 10:13:11 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
+char	*gnl_error(int *error);
 char	*ft_strcpy_until(char *dest, char *src, char delim);
 char	*get_next_line(int fd, int *error);
 char	*fill_line(int fd, char *line, int *error);
