@@ -1,8 +1,10 @@
 #include "cube.h"
 #include "init.h"
-#include "../minilibx-linux/mlx.h"
 #include "parsing.h"
+#include "cleanup.h"
+#include "error.h"
 #include "../moves/moves.h"
+#include "../minilibx-linux/mlx.h"
 #include <math.h>
 
 int	main(int ac, char **av)
@@ -15,7 +17,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	cube = parse_cub(av);
-	setup_mlx_context(cube);
+	if (setup_mlx_context(cube))
+		ft_error(cube, "Init mlx failed");
 	mlx_hook(cube->mlx_window, 2, 1L << 0, key_press, cube);
 	mlx_hook(cube->mlx_window, 3, 1L << 1, key_release, cube);
 	mlx_hook(cube->mlx_window, 17, 0, close_window, cube);

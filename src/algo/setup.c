@@ -104,7 +104,7 @@ static double	ray_len(t_calc *data, t_wall *wall, t_algo algo)
 			x -= 1;
 		else if (data->ray_dir_y < 0 && wall->side == VERTICAL && y > 0)
 			y -= 1;
-		if (y < 0 || x < 0)
+		if (y <= 0 || x <= 0)
 			break ;
 		if (x < algo.x_max && y < algo.y_max && algo.map[y][x] == '1')
 			break ;

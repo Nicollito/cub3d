@@ -16,6 +16,6 @@
  * window data.
  * @return 0 on success, or 1 if any initialization step fails.
  */
-int	setup_mlx_context(t_cube *game);
+int	setup_mlx_context(t_cube *cube);
 
 #endif

@@ -77,7 +77,15 @@ static int	init_wall_textures(t_cube *cube)
 	{
 		if (load_texture(&cube->sprites.text_wall[i], cube->mlx,
 				cube->config.textures[i]))
+		{
+			while (--i >= 0)
+			{
+				mlx_destroy_image(cube->mlx,
+					cube->sprites.text_wall[i].mlx_ptr);
+				cube->sprites.text_wall[i].mlx_ptr = NULL;
+			}
 			return (1);
+		}
 	}
 	return (0);
 }

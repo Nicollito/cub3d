@@ -137,7 +137,7 @@ $(MLX) :
 -include $(DEPS)
 
 debug :
-	@echo "🎯 Compiling for debug: $(CFLAGS) $(CFLAGS_DEBUG)"
+	@echo "🎯 Compiling for debug: $(CFLAGS_DEBUG)"
 	@$(MAKE) debug -C libft
 	@$(MAKE) re CFLAGS="$(CFLAGS) $(CFLAGS_DEBUG)" DEBUG_MODE=debug
 

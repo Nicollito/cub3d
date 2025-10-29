@@ -20,7 +20,7 @@ void	free_tmp_map(t_list *tmp_map)
 {
 	t_list	*tmp;
 
-	while(tmp_map)
+	while (tmp_map)
 	{
 		tmp = tmp_map->next;
 		free(tmp_map->content);
@@ -35,16 +35,32 @@ static void	destroy_wall_textures(t_cube *cube)
 
 	i = -1;
 	while (++i < NB_TEXTURES)
+	{
 		mlx_destroy_image(cube->mlx, cube->sprites.text_wall[i].mlx_ptr);
+		cube->sprites.text_wall[i].mlx_ptr = NULL;
+	}
 }
 
 static void	clear_mlx(t_cube *cube)
 {
-	destroy_wall_textures(cube);
-	mlx_destroy_image(cube->mlx, cube->sprites.frame.mlx_ptr);
-	mlx_destroy_window(cube->mlx, cube->mlx_window);
-	mlx_destroy_display(cube->mlx);
-	free(cube->mlx);
+	if (cube->sprites.text_wall[0].mlx_ptr)
+		destroy_wall_textures(cube);
+	if (cube->sprites.frame.mlx_ptr)
+	{
+		mlx_destroy_image(cube->mlx, cube->sprites.frame.mlx_ptr);
+		cube->sprites.frame.mlx_ptr = NULL;
+	}
+	if (cube->mlx_window)
+	{
+		mlx_destroy_window(cube->mlx, cube->mlx_window);
+		cube->mlx_window = NULL;
+	}
+	if (cube->mlx)
+	{
+		mlx_destroy_display(cube->mlx);
+		free(cube->mlx);
+		cube->mlx = NULL;
+	}
 }
 
 void	free_cube(t_cube *cube)
