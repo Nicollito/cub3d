@@ -10,7 +10,7 @@ void	parse_config(t_cube *cube, char *line)
 		parse_color_line(cube, line);
 	else
 	{
+		free(line);
 		ft_error(cube, "Invalid line in .cub file");
-		printf("%s\n", line);
 	}
 }

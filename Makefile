@@ -4,7 +4,7 @@ MAKEFLAGS += --no-print-directory
 
 NAME = cub3D
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -g3
 CFLAGS += 										\
 					-Iminilibx-linux			\
 					-Ilibft						\
@@ -49,6 +49,7 @@ main_SRCS		=										\
 						main.c
 parsing_SRCS	=										\
 						parse_colors.c					\
+						parse_colors_utils.c			\
 						parse_config.c					\
 						parse_map.c						\
 						parse_textures.c				\

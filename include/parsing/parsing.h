@@ -11,8 +11,8 @@
 
 /* ----- PARSING.C ----- */
 void			free_cube(t_cube *cube);
-void			validate_config_completeness(t_cube *cube);
-int				check_cub_extension(char *file);
+void			validate_config_completeness(t_cube *cube, char *line);
+int				check_extension(char *path, char *ext);
 void			parse_cub_file(t_cube *cube, char *file);
 t_cube			*parse_cub(char **av);
 
@@ -20,7 +20,7 @@ t_cube			*parse_cub(char **av);
 t_color_type	identify_color_type(char *line);
 int				count_tokens(char **color);
 int				is_numeric_string(char *str);
-void			parse_rgb(t_cube *cube, char **color, t_color_type type);
+void			parse_rgb(t_cube *cube, char **color, t_color_type type, char *line);
 void			parse_color_line(t_cube *cube, char *line);
 
 /* ----- PARSE_CONFIG.C ----- */\

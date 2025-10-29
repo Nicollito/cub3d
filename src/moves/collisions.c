@@ -15,7 +15,8 @@ int	is_valid_position(t_cube *cube, double x, double y)
 		{
 			map_x = (int)(x + i * 0.1);
 			map_y = (int)(y + j * 0.1);
-			if (cube->map[map_y][map_x] == '1' || cube->map[map_y][map_x] == ' ')
+			if (cube->map[map_y][map_x] == '1'
+				|| cube->map[map_y][map_x] == ' ')
 				return (0);
 			j++;
 		}
