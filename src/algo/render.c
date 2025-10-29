@@ -1,8 +1,27 @@
 #include "cube.h"
 #include "algo.h"
-#include "libft.h"
-#include "init.h"
-#include <math.h>
+
+/**
+ * @brief Sets a pixel in an image to a specified color.
+ *
+ * This function converts a color structure (RGB) into a 24-bit integer value
+ * according to the image's endian format, then writes it into the image memory
+ * at the given offset.
+ *
+ * @param color Pointer to the color structure containing RGB values.
+ * @param image The image data structure where the pixel will be set.
+ * @param offset The pixel index in the image memory array.
+ */
+static void	color_pixel(t_color color, t_img_data image, int offset)
+{
+	int	rgba;
+
+	if (image.endian == 1)
+		rgba = (color.rgb[0] << 16) | (color.rgb[1] << 8) | color.rgb[2];
+	else
+		rgba = (color.rgb[2] << 16) | (color.rgb[1] << 8) | color.rgb[0];
+	((int *)image.mem)[offset] = rgba;
+}
 
 /**
  * @brief Calculates the starting Y coordinate on a texture for a wall slice.
@@ -54,56 +73,31 @@ static int	texture_coord_x(t_calc data, t_side side, int text_width)
 	return (x_coord);
 }
 
-/**
- * @brief Renders a single vertical wall column into the frame image.
- *
- * This function draws a vertical slice of a wall on the screen by copying
- * pixels from the appropriate wall texture to the frame buffer. The column
- * index specifies which vertical line on the frame to draw. Texture coordinates
- * are calculated to match the wall's height and position.
- *
- * @param sprite The sprite structure containing textures and the frame buffer.
- * @param wall The wall structure containing height, draw start, and texture info.
- * @param data Calculation data containing ray intersection info and step size.
- * @param column The column index in the frame where the wall slice will be drawn.
- */
-static void	write_column(t_sprites sprite, t_wall wall, t_calc data, int column)
+void	write_column(t_sprites sprite, t_wall wall, t_calc data,
+		t_color *color)
 {
-	int		i;
-	int		text_x;
-	double	text_y;
+	int		offset;
 	t_image	text_wall;
-	t_image	frame;
 
-	i = -1;
+	wall.line = -1;
 	text_wall = sprite.text_wall[wall.texture];
-	frame = sprite.frame;
-	text_x = texture_coord_x(data, wall.side, text_wall.width);
-	text_y = texture_start_y(wall, &data.step, text_wall.height);
-	while (++i < wall.height && i + wall.draw_start < WINDOW_HEIGHT)
+	wall.text_x = texture_coord_x(data, wall.side, text_wall.width);
+	wall.text_y = texture_start_y(wall, &wall.text_step, text_wall.height);
+	while (++wall.line < WINDOW_HEIGHT)
 	{
-		((int *)frame.data.mem)
-		[(((wall.draw_start + i) * frame.data.line_length)
-				+ (column * (frame.data.bits_per_pixel / 8))) / 4]
-			= ((int *)text_wall.data.mem)
-		[(((int)(text_y + data.step * i) *text_wall.data.line_length)
-				+ (text_x * (text_wall.data.bits_per_pixel / 8))) / 4];
-	}
-}
-
-void	raycasting(t_color *color, t_sprites sprites, t_algo algo)
-{
-	int			column;
-	t_wall		wall;
-	t_calc		data;
-
-	column = -1;
-	ft_memset(&wall, 0, sizeof(t_wall));
-	ft_memset(&data, 0, sizeof(t_calc));
-	fill_background(color, sprites.frame.data);
-	while (++column < WINDOW_WIDTH)
-	{
-		get_write_value(algo, &wall, &data, column);
-		write_column(sprites, wall, data, column);
+		offset = (int)(((wall.line * sprite.frame.data.line_length)
+					+ (wall.column * (sprite.frame.data.bits_per_pixel
+							* 0.125))) * 0.25);
+		if (wall.line < wall.draw_start)
+			color_pixel(color[CEILING], sprite.frame.data, offset);
+		else if (wall.line >= wall.draw_end)
+			color_pixel(color[FLOOR], sprite.frame.data, offset);
+		else if (wall.line >= wall.draw_start && wall.line < wall.draw_end)
+			((int *)sprite.frame.data.mem)[offset] = ((int *)text_wall.data.mem)
+			[(int)((((int)(wall.text_y + wall.text_step * (wall.line
+									- wall.draw_start))
+							*text_wall.data.line_length) + (wall.text_x
+							* (text_wall.data.bits_per_pixel * 0.125)))
+					* 0.25)];
 	}
 }

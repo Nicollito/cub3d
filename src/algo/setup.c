@@ -22,14 +22,14 @@ static void	set_step(t_calc *data, t_side *side)
 	double	dist_y;
 
 	if (data->ray_dir_x > 0)
-		line = floor(data->ray_x) + 1;
+		line = (int)(data->ray_x) + 1;
 	else
-		line = floor(data->ray_x - 0.0001);
+		line = (int)(data->ray_x - 0.0001);
 	dist_x = (line - data->ray_x) / data->ray_dir_x;
 	if (data->ray_dir_y > 0)
-		line = floor(data->ray_y) + 1;
+		line = (int)(data->ray_y) + 1;
 	else
-		line = floor(data->ray_y - 0.0001);
+		line = (int)(data->ray_y - 0.0001);
 	dist_y = (line - data->ray_y) / data->ray_dir_y;
 	if (dist_y < dist_x)
 	{
@@ -52,20 +52,20 @@ static void	set_step(t_calc *data, t_side *side)
  * ray that hit it.
  *
  * @param wall Pointer to the wall structure to update.
- * @param data Calculation data containing ray direction information.
+ * @param data Pointer to calculation data containing ray start and direction.
  */
-static void	set_texture_orientation(t_wall *wall, t_calc data)
+static void	set_texture_orientation(t_wall *wall, t_calc *data)
 {
 	if (wall->side == VERTICAL)
 	{
-		if (data.ray_dir_y < 0)
+		if (data->ray_dir_y < 0)
 			wall->texture = TEXT_NO;
 		else
 			wall->texture = TEXT_SO;
 	}
-	if (wall->side == HORIZONTAL)
+	else if (wall->side == HORIZONTAL)
 	{
-		if (data.ray_dir_x < 0)
+		if (data->ray_dir_x < 0)
 			wall->texture = TEXT_WE;
 		else
 			wall->texture = TEXT_EA;
@@ -109,7 +109,7 @@ static double	ray_len(t_calc *data, t_wall *wall, t_algo algo)
 		if (x < algo.x_max && y < algo.y_max && algo.map[y][x] == '1')
 			break ;
 	}
-	set_texture_orientation(wall, *data);
+	set_texture_orientation(wall, data);
 	return (res);
 }
 
@@ -126,12 +126,17 @@ static double	ray_len(t_calc *data, t_wall *wall, t_algo algo)
  */
 static void	set_data(t_char character, t_calc *data, double ray_base_x)
 {
+	double	cos_char;
+	double	sin_char;
+
+	cos_char = cos(character.orientation);
+	sin_char = sin(character.orientation);
 	data->ray_x = character.x;
 	data->ray_y = character.y;
-	data->ray_dir_x = ray_base_x * cos(character.orientation)
-		- RAY_BASE_Y * sin(character.orientation);
-	data->ray_dir_y = ray_base_x * sin(character.orientation)
-		+ RAY_BASE_Y * cos(character.orientation);
+	data->ray_dir_x = ray_base_x * cos_char
+		- RAY_BASE_Y * sin_char;
+	data->ray_dir_y = ray_base_x * sin_char
+		+ RAY_BASE_Y * cos_char;
 }
 
 void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
@@ -141,7 +146,8 @@ void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
 	set_data(algo.character, data, algo.ray_base_x[column]);
 	len = ray_len(data, wall, algo);
 	wall->height = (int)(algo.dist_proj / len);
-	wall->draw_start = (WINDOW_HEIGHT / 2) - (wall->height / 2);
+	wall->draw_start = (WINDOW_HEIGHT * 0.5) - (wall->height * 0.5);
+	wall->draw_end = wall->draw_start + wall->height;
 	if (wall->draw_start < 0)
 		wall->draw_start = 0;
 }

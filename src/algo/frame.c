@@ -1,6 +1,7 @@
 #include "cube.h"
 #include "algo.h"
 #include "mlx.h"
+#include "libft.h"
 #include <sys/time.h>
 #include <stdio.h>
 #include "../moves/moves.h"
@@ -56,21 +57,49 @@ static void	print_fps(void)
  * @param cube Pointer to the main cube structure.
  * @param algo Pointer to the algorithm structure to initialize.
  */
-static void	set_algo(t_cube *cube, t_algo *algo)
+static void	set_algo(t_cube cube, t_algo *algo)
 {
-	algo->character = cube->character;
-	algo->ray_base_x = cube->ray_base_x;
-	algo->map = cube->map;
-	algo->dist_proj = cube->dist_proj;
-	algo->y_max = cube->y_max;
-	algo->x_max = cube->x_max;
+	algo->character = cube.character;
+	algo->ray_base_x = cube.ray_base_x;
+	algo->map = cube.map;
+	algo->dist_proj = cube.dist_proj;
+	algo->y_max = cube.y_max;
+	algo->x_max = cube.x_max;
+}
+
+/**
+ * @brief Performs the main raycasting loop to render the 3D scene.
+ *
+ * This function iterates over each vertical screen column, casts a ray from
+ * the player's position, computes wall intersections, determines wall height
+ * and texture, and draws the corresponding column in the frame buffer. The
+ * ceiling and floor are rendered together with the wall in each column.
+ *
+ * @param color Array of colors used for ceiling and floor rendering.
+ * @param sprites Structure containing all textures and the frame buffer.
+ * @param algo Structure holding the map, character data, projection distance,
+ * and precomputed ray base offsets.
+ */
+static void	raycasting(t_color *color, t_sprites sprites, t_algo algo)
+{
+	t_wall		wall;
+	t_calc		data;
+
+	ft_memset(&wall, 0, sizeof(t_wall));
+	ft_memset(&data, 0, sizeof(t_calc));
+	wall.column = -1;
+	while (++wall.column < WINDOW_WIDTH)
+	{
+		get_write_value(algo, &wall, &data, wall.column);
+		write_column(sprites, wall, data, color);
+	}
 }
 
 int	render_frame(t_cube *cube)
 {
 	t_algo	algo;
 
-	set_algo(cube, &algo);
+	set_algo(*cube, &algo);
 	update_moves(cube);
 	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
