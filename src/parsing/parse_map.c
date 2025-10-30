@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:56 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:57 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/30 09:45:04 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*safe_gnl(t_cube *cube, int fd, int *error, t_list *tmp_map)
 	return (line);
 }
 
-static void	fill_map(t_cube *cube, t_list *tmp_map)
+void	fill_map(t_cube *cube, t_list *tmp_map)
 {
 	t_list	*tmp;
 	int		i;
@@ -62,41 +62,39 @@ void	fill_map_line(t_cube *cube, t_list *tmp_map, int i)
 	cube->map[i][cube->x_max - 1] = '\0';
 }
 
-void	build_map(t_cube *cube, char *line, int fd)
+static void	append_map_line(t_cube *cube, int fd, t_list **tmp_map, int *error)
 {
-	int		error;
+	char	*line;
+	t_list	*tmp_node;
+
+	line = safe_gnl(cube, fd, error, *tmp_map);
+	while (line)
+	{
+		tmp_node = ft_lstnew(line);
+		if (!tmp_node)
+		{
+			free(line);
+			free_tmp_map(*tmp_map);
+			ft_error(cube, "Malloc failed");
+		}
+		ft_lstadd_back(tmp_map, tmp_node);
+		line = safe_gnl(cube, fd, error, *tmp_map);
+	}
+	free(line);
+}
+
+t_list	*read_map_lines(t_cube *cube, int fd, char *line)
+{
 	t_list	*tmp_map;
+	int		error;
 
 	error = 0;
 	tmp_map = ft_lstnew(line);
-	line = safe_gnl(cube, fd, &error, tmp_map);
-	while (line)
+	if (!tmp_map)
 	{
-		ft_lstadd_back(&tmp_map, ft_lstnew(line));
-		line = safe_gnl(cube, fd, &error, tmp_map);
-	}
-	free(line);
-	cube->y_max = ft_lstsize(tmp_map);
-	cube->x_max = get_map_width(tmp_map);
-	cube->map = malloc(sizeof(char *) * (cube->y_max + 1));
-	if (!cube->map)
-	{
-		free_tmp_map(tmp_map);
+		free(line);
 		ft_error(cube, "Malloc failed");
 	}
-	fill_map(cube, tmp_map);
-}
-
-size_t	get_map_width(t_list *tmp_map)
-{
-	size_t	len;
-
-	len = 0;
-	while (tmp_map)
-	{
-		if (ft_strlen(tmp_map->content) > len)
-			len = ft_strlen(tmp_map->content);
-		tmp_map = tmp_map->next;
-	}
-	return (len);
+	append_map_line(cube, fd, &tmp_map, &error);
+	return (tmp_map);
 }

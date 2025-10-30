@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:27 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:28 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/30 09:44:48 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void			parse_config(t_cube *cube, char *line);
 /* ----- PARSE_MAP.C ----- */
 void			fill_map_line(t_cube *cube, t_list *tmp_map, int i);
 void			build_map(t_cube *cube, char *line, int fd);
-int				count_map_line(char *line, int fd);
 size_t			get_map_width(t_list *tmp_map);
+t_list			*read_map_lines(t_cube *cube, int fd, char *line);
+void			fill_map(t_cube *cube, t_list *tmp_map);
 
 /* ----- PARSE_TEXTURES.C ----- */
 t_texture_type	identify_texture_type(char *line);

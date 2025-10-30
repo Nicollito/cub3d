@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:18:19 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 10:13:42 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/10/30 09:42:55 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	res[i + j] = '\0';
 	return (res);
 }
-
+/* 
 void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*ptr;
@@ -92,4 +92,4 @@ void	ft_bzero(void *s, size_t n)
 		ptr[i] = '\0';
 		i++;
 	}
-}
+} */

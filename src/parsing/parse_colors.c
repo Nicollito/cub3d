@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:51 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:52 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/30 09:45:50 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,20 @@ void	parse_color_line(t_cube *cube, char *line)
 
 	type = identify_color_type(line);
 	color = ft_split(line + 2, ',');
+	if (!color)
+	{
+		free(line);
+		ft_error(cube, "Malloc failed");
+	}
 	count = count_tokens(color);
 	if (count != 3)
 	{
-		free(line);
-		free_tab(color);
+		rgb_error(color, line, NULL);
 		ft_error(cube, "Invalid color format: expected 3 values");
 	}
 	if (cube->config.color[type].is_set == 1)
 	{
-		free(line);
-		free_tab(color);
+		rgb_error(color, line, NULL);
 		ft_error(cube, "Color defined multiple times");
 	}
 	parse_rgb(cube, color, type, line);
