@@ -6,7 +6,7 @@
 /*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:36 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:55:37 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:24:55 by nimadela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,3 +113,4 @@ void	write_column(t_sprites sprite, t_wall wall, t_calc data,
 					* 0.25)];
 	}
 }
+

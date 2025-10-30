@@ -6,7 +6,7 @@
 /*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:21 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:22 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:49:29 by nimadela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define WINDOW_HEIGHT 1080
 # define PI 3.14159265358979323846
 # define FOV 60
+# define NB_CASES 1.5
 # define NB_TEXTURES 4
 # define RAY_BASE_Y -1
 
