@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:32 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:55:33 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:53:00 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include "../moves/moves.h"
+#include "minimap.h"
 
 /**
  * @brief Checks if a new second has passed since the last check.
@@ -113,9 +114,13 @@ int	render_frame(t_cube *cube)
 
 	set_algo(*cube, &algo);
 	update_moves(cube);
+	draw_minimap(cube, &cube->minimap);
 	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
 		cube->sprites.frame.mlx_ptr, 0, 0);
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window, 
+			cube->minimap.image.mlx_ptr, (WINDOW_WIDTH - cube->minimap.image.width - 20), 
+			(WINDOW_HEIGHT - cube->minimap.image.height - 20));
 	print_fps();
 	return (0);
 }

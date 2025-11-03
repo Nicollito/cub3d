@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:07 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:08 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:50:35 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "init.h"
+#include "minimap.h"
 #include "get_next_line.h"
 #include "mlx.h"
 #include <math.h>
@@ -135,6 +136,8 @@ int	setup_mlx_context(t_cube *cube)
 	if (create_frame(cube))
 		return (1);
 	if (init_wall_textures(cube))
+		return (1);
+	if (init_minimap(cube, &cube->minimap.image))
 		return (1);
 	cube->fov = (FOV * PI / 180);
 	cube->dist_proj = (WINDOW_WIDTH * 0.5) / tan(cube->fov * 0.5);
