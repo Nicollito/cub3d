@@ -61,6 +61,7 @@ parsing_SRCS	=										\
 						validate_map.c
 moves_SRCS		=										\
 						moves.c							\
+						mouse_moves.c					\
 						collisions.c					\
 						events.c
 cleanup_SRCS	=										\

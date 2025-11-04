@@ -112,6 +112,8 @@ int	render_frame(t_cube *cube)
 {
 	t_algo	algo;
 
+	mlx_mouse_hide(cube->mlx, cube->mlx_window);
+	//mlx_mouse_get_pos(cube->mlx, cube->mlx_window, 0, 0);
 	set_algo(*cube, &algo);
 	update_moves(cube);
 	draw_minimap(cube, &cube->minimap);
