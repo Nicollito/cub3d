@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:21 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/04 16:18:07 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:44:50 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 
-# define WINDOW_WIDTH 960
-# define WINDOW_HEIGHT 540
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define PI 3.14159265358979323846
 # define FOV 60
 # define NB_TEXTURES 4

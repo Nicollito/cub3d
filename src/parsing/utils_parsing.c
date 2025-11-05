@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:57:08 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:57:09 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:28:07 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,33 @@ int	is_player_symbol(char c)
 
 int	is_texture_line(char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0
-		|| ft_strncmp(line, "SO ", 3) == 0
-		|| ft_strncmp(line, "EA ", 3) == 0
-		|| ft_strncmp(line, "WE ", 3) == 0)
-		return (1);
+	char	*tmp;
+
+	tmp = ft_strtrim(line, " \t");
+	if (ft_strncmp(tmp, "NO ", 3) == 0
+		|| ft_strncmp(tmp, "SO ", 3) == 0
+		|| ft_strncmp(tmp, "EA ", 3) == 0
+		|| ft_strncmp(tmp, "WE ", 3) == 0)
+		{
+			free(tmp);
+			return (1);
+		}
+	free(tmp);
 	return (0);
 }
 
 int	is_color_line(char *line)
 {
-	if ((ft_strncmp(line, "C ", 2) == 0)
-		|| ft_strncmp(line, "F ", 2) == 0)
-		return (1);
+	char *tmp;
+
+	tmp = ft_strtrim(line, " \t");
+	if ((ft_strncmp(tmp, "C ", 2) == 0)
+		|| ft_strncmp(tmp, "F ", 2) == 0)
+		{
+			free(tmp);
+			return (1);
+		}
+	free(tmp);
 	return (0);
 }
 

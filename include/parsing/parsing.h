@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:27 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/30 09:44:48 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:55:14 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_list			*read_map_lines(t_cube *cube, int fd, char *line);
 void			fill_map(t_cube *cube, t_list *tmp_map);
 
 /* ----- PARSE_TEXTURES.C ----- */
-t_texture_type	identify_texture_type(char *line);
+t_texture_type	identify_texture_type(t_cube *cube, char *line);
 void			parse_texture(t_cube *cube, char *line);
 
 /* ----- UTILS_PARSING.C ----- */
