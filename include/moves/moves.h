@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:24 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/04 16:09:35 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:57:02 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	rotate(t_cube *cube, int direction, double rot_speed);
 int		update_moves(t_cube *cube);
 
 /* ----- MOUSE_MOVES.C ----- */
-int   mouse_motion_handler(int x, int y, t_cube *cube);
+int		mouse_motion_handler(int x, int y, t_cube *cube);
 
 #endif

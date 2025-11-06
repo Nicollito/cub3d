@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:32 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/03 13:53:00 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:59:48 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,16 @@ int	render_frame(t_cube *cube)
 {
 	t_algo	algo;
 
-	mlx_mouse_hide(cube->mlx, cube->mlx_window);
-	//mlx_mouse_get_pos(cube->mlx, cube->mlx_window, 0, 0);
 	set_algo(*cube, &algo);
 	update_moves(cube);
 	draw_minimap(cube, &cube->minimap);
 	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
 		cube->sprites.frame.mlx_ptr, 0, 0);
-	mlx_put_image_to_window(cube->mlx, cube->mlx_window, 
-			cube->minimap.image.mlx_ptr, (WINDOW_WIDTH - cube->minimap.image.width - 20), 
-			(WINDOW_HEIGHT - cube->minimap.image.height - 20));
+	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
+		cube->minimap.image.mlx_ptr,
+		(WINDOW_WIDTH - cube->minimap.image.width - 30),
+		(WINDOW_HEIGHT - cube->minimap.image.height - 30));
 	print_fps();
 	return (0);
 }

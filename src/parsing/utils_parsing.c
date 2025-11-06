@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:57:08 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/05 18:28:07 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:00:28 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@ int	is_texture_line(char *line)
 		|| ft_strncmp(tmp, "SO ", 3) == 0
 		|| ft_strncmp(tmp, "EA ", 3) == 0
 		|| ft_strncmp(tmp, "WE ", 3) == 0)
-		{
-			free(tmp);
-			return (1);
-		}
+	{
+		free(tmp);
+		return (1);
+	}
 	free(tmp);
 	return (0);
 }
 
 int	is_color_line(char *line)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strtrim(line, " \t");
 	if ((ft_strncmp(tmp, "C ", 2) == 0)
 		|| ft_strncmp(tmp, "F ", 2) == 0)
-		{
-			free(tmp);
-			return (1);
-		}
+	{
+		free(tmp);
+		return (1);
+	}
 	free(tmp);
 	return (0);
 }

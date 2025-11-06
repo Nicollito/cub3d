@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:48 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:49 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:55:07 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,6 @@ t_color_type	identify_color_type(char *line)
 	else if (ft_strncmp(line, "F ", 2) == 0)
 		return (FLOOR);
 	return (INVALID_COLOR);
-}
-
-int	count_tokens(char **color)
-{
-	int	i;
-
-	i = 0;
-	while (color[i])
-		i++;
-	return (i);
 }
 
 int	is_numeric_string(char *str)

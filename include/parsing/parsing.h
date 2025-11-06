@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:27 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/05 17:55:14 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:04:05 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_cube			*parse_cub(char **av);
 
 /* ----- PARSE_COLORS.C ----- */
 t_color_type	identify_color_type(char *line);
-int				count_tokens(char **color);
+void			count_tokens(t_cube *cube, char **color, char *line);
 int				is_numeric_string(char *str);
 void			parse_rgb(t_cube *cube, char **color, t_color_type type,
 					char *line);

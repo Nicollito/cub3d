@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 12:33:44 by lserodon          #+#    #+#             */
-/*   Updated: 2025/11/03 14:20:00 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:57:38 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,3 @@ void	draw_player(t_minimap *minimap, t_cube *cube,
 			put_pixel(&minimap->image, player_x + x, player_y + y, 0xFF0000);
 	}
 }
-

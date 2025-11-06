@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:58 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/05 18:23:18 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:00:48 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	textures_error(t_cube *cube, char *line, char *path, char *msg)
 
 t_texture_type	identify_texture_type(t_cube *cube, char *line)
 {
-	char 			*tmp;
+	char			*tmp;
 	t_texture_type	res;
 
 	res = INVALID_TEXTURE;
@@ -49,7 +49,7 @@ void	parse_texture(t_cube *cube, char *line)
 	char			*path;
 	int				fd;
 
-	while(*line && *line == ' ')
+	while (*line && *line == ' ')
 		line++;
 	type = identify_texture_type(cube, line);
 	path = ft_strtrim(line + 2, " \n");
