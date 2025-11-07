@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:49 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/30 16:25:17 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:07:53 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "cube.h"
 #include "algo.h"
 #include <math.h>
@@ -36,7 +37,7 @@ static void	set_step(t_calc *data, t_side *side)
 	if (data->ray_dir_x > 0)
 		line = (int)(data->ray_x) + 1;
 	else
-		line = (int)(data->ray_x - 0.0001); //revoir
+		line = (int)(data->ray_x - 0.0001);
 	dist_x = (line - data->ray_x) / data->ray_dir_x;
 	if (data->ray_dir_y > 0)
 		line = (int)(data->ray_y) + 1;
@@ -145,13 +146,11 @@ static void	set_data(t_char character, t_calc *data, double ray_base_x)
 	sin_char = sin(character.orientation);
 	data->ray_x = character.x;
 	data->ray_y = character.y;
-	data->ray_dir_x = ray_base_x * cos_char //à revoir
+	data->ray_dir_x = ray_base_x * cos_char
 		- RAY_BASE_Y * sin_char;
 	data->ray_dir_y = ray_base_x * sin_char
 		+ RAY_BASE_Y * cos_char;
 }
-
-#include <stdio.h>
 
 void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
 {
@@ -159,7 +158,6 @@ void	get_write_value(t_algo algo, t_wall *wall, t_calc *data, int column)
 
 	set_data(algo.character, data, algo.ray_base_x[column]);
 	len = ray_len(data, wall, algo);
-	// printf("len [%f]\n", len);
 	wall->height = (int)(algo.dist_proj / len * WINDOW_HEIGHT);
 	wall->draw_start = (WINDOW_HEIGHT * 0.5) - (wall->height * 0.5);
 	wall->draw_end = wall->draw_start + wall->height;

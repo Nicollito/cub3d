@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:21 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/07 09:57:40 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:06:16 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ typedef struct cube
 	double		fov;
 	t_keys		keys;
 	int			fd_file;
+	int			mov_speed;
+	int			rot_speed;
 	double		ray_base_x[WINDOW_WIDTH];
 }				t_cube;
 
