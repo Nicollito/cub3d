@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:45 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:46 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:12:50 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	update_moves(t_cube *cube)
 	double	move_speed;
 	double	rot_speed;
 
-	move_speed = 0.05;
-	rot_speed = 0.03;
+	move_speed = 0.02;
+	rot_speed = 0.02;
 	if (cube->keys.w == 1)
 		move(cube, 1, move_speed);
 	if (cube->keys.s == 1)

@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:51 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/30 09:45:50 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:01:31 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,27 @@ void	parse_rgb(t_cube *cube, char **color, t_color_type type, char *line)
 	free_tab(color);
 }
 
+void	count_tokens(t_cube *cube, char **color, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (color[i])
+		i++;
+	if (i != 3)
+	{
+		rgb_error(color, line, NULL);
+		ft_error(cube, "Invalid color format: expected 3 values");
+	}
+}
+
 void	parse_color_line(t_cube *cube, char *line)
 {
 	char			**color;
 	t_color_type	type;
-	int				count;
 
+	while (*line && *line == ' ')
+		line++;
 	type = identify_color_type(line);
 	color = ft_split(line + 2, ',');
 	if (!color)
@@ -74,12 +89,7 @@ void	parse_color_line(t_cube *cube, char *line)
 		free(line);
 		ft_error(cube, "Malloc failed");
 	}
-	count = count_tokens(color);
-	if (count != 3)
-	{
-		rgb_error(color, line, NULL);
-		ft_error(cube, "Invalid color format: expected 3 values");
-	}
+	count_tokens(cube, color, line);
 	if (cube->config.color[type].is_set == 1)
 	{
 		rgb_error(color, line, NULL);

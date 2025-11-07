@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:21 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/30 16:49:29 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/07 09:57:40 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 960
+# define WINDOW_HEIGHT 540
 # define PI 3.14159265358979323846
 # define FOV 60
 # define NB_CASES 1.5
@@ -33,7 +33,7 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
-/* 
+/*
 # define KEY_W 122
 # define KEY_A 113
 # define KEY_S 115
@@ -43,7 +43,7 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
- */
+*/
 typedef enum e_texture_type
 {
 	INVALID_TEXTURE = -1,
@@ -117,6 +117,17 @@ typedef struct s_keys
 	int	right;
 }		t_keys;
 
+typedef struct s_minimap
+{
+	t_image	image;
+	float	start_x;
+	float	start_y;
+	float	end_x;
+	float	end_y;
+	float	tile_size;
+	float	radius;
+}			t_minimap;
+
 typedef struct cube
 {
 	void		*mlx;
@@ -124,6 +135,7 @@ typedef struct cube
 	t_char		character;
 	t_sprites	sprites;
 	t_config	config;
+	t_minimap	minimap;
 	int			y_max;
 	int			x_max;
 	char		**map;

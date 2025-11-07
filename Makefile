@@ -14,7 +14,8 @@ CFLAGS += 										\
 					-Iinclude/init				\
 					-Iinclude/parsing			\
 					-Iinclude/moves				\
-					-Iinclude/cleanup
+					-Iinclude/cleanup			\
+					-Iinclude/minimap
 DFLAGS = -MMD -MF
 LDFLAGS = -Lmlx-linux -Lmlx -Imlx -L/usr/lib -lX11 -lXext -lm -lz
 OFLAGS = -O3
@@ -36,7 +37,8 @@ SRC_DIR 		=										\
 						main							\
 						parsing							\
 						moves							\
-						cleanup
+						cleanup							\
+						minimap
 algo_SRCS		=										\
 						render.c						\
 						frame.c							\
@@ -59,10 +61,14 @@ parsing_SRCS	=										\
 						validate_map.c
 moves_SRCS		=										\
 						moves.c							\
+						mouse_moves.c					\
 						collisions.c					\
 						events.c
-cleanup_SRCS		=										\
+cleanup_SRCS	=										\
 						cleanup.c
+minimap_SRCS	=										\
+						minimap.c						\
+						init_minimap.c
 SRCS =	$(foreach dir,$(SRC_DIR), $(addprefix $(SRC)/$(dir)/,$($(dir)_SRCS)))
 #-----------------------------------OBJECTS-----------------------------------#
 OBJ_DIR = 											\
@@ -79,7 +85,9 @@ HEADER_DIR			=								\
 						cube						\
 						error						\
 						parsing						\
-						moves
+						moves						\
+						cleanup						\
+						minimap
 algo_HDR			=								\
 						algo.h
 cube_HDR			= 								\
@@ -90,6 +98,10 @@ parsing_HDR			=								\
 						parsing.h
 moves_HDR			=								\
 						moves.h
+cleanup_HDR			=								\
+						cleanup.h					
+minimap_HDR			=								\
+						minimap.h
 HEADER = 	$(foreach dir,$(HEADER_DIR), $(addprefix $(INCLUDE)/$(dir)/,$($(dir)_HDR)))
 #------------------------------------UTILS------------------------------------#
 SRCS_LIB = $(shell make -s -C libft print_src)

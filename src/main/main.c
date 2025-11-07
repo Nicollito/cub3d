@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:36 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/30 11:43:18 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/07 09:58:05 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int ac, char **av)
 	mlx_hook(cube->mlx_window, 2, 1L << 0, key_press, cube);
 	mlx_hook(cube->mlx_window, 3, 1L << 1, key_release, cube);
 	mlx_hook(cube->mlx_window, 17, 0, close_window, cube);
+	mlx_hook(cube->mlx_window, 6, 1L << 6, mouse_motion_handler, cube);
 	mlx_loop_hook(cube->mlx, render_frame, cube);
 	mlx_loop(cube->mlx);
 }

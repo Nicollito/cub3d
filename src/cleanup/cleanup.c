@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:32 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:33 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/06 11:26:42 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ static void	clear_mlx(t_cube *cube)
 	{
 		mlx_destroy_image(cube->mlx, cube->sprites.frame.mlx_ptr);
 		cube->sprites.frame.mlx_ptr = NULL;
+	}
+	if (cube->minimap.image.mlx_ptr)
+	{
+		mlx_destroy_image(cube->mlx, cube->minimap.image.mlx_ptr);
+		cube->minimap.image.mlx_ptr = NULL;
 	}
 	if (cube->mlx_window)
 	{

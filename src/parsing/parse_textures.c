@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:58 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:59 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:00:48 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,28 @@ static void	textures_error(t_cube *cube, char *line, char *path, char *msg)
 	ft_error(cube, msg);
 }
 
-t_texture_type	identify_texture_type(char *line)
+t_texture_type	identify_texture_type(t_cube *cube, char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (TEXT_NO);
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (TEXT_EA);
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (TEXT_SO);
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (TEXT_WE);
-	return (INVALID_TEXTURE);
+	char			*tmp;
+	t_texture_type	res;
+
+	res = INVALID_TEXTURE;
+	tmp = ft_strtrim(line, " \t\n");
+	if (!tmp)
+	{
+		free(line);
+		ft_error(cube, "ft_strtrim failed");
+	}
+	if (ft_strncmp(tmp, "NO ", 3) == 0)
+		res = TEXT_NO;
+	else if (ft_strncmp(tmp, "EA ", 3) == 0)
+		res = TEXT_EA;
+	else if (ft_strncmp(tmp, "SO ", 3) == 0)
+		res = TEXT_SO;
+	else if (ft_strncmp(tmp, "WE ", 3) == 0)
+		res = TEXT_WE;
+	free (tmp);
+	return (res);
 }
 
 void	parse_texture(t_cube *cube, char *line)
@@ -38,7 +49,9 @@ void	parse_texture(t_cube *cube, char *line)
 	char			*path;
 	int				fd;
 
-	type = identify_texture_type(line);
+	while (*line && *line == ' ')
+		line++;
+	type = identify_texture_type(cube, line);
 	path = ft_strtrim(line + 2, " \n");
 	if (!path)
 	{
