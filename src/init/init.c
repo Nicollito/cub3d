@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:07 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/07 09:57:47 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/10 11:31:20 by nimadela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ static void	set_base_x(double fov, double *ray_base_x)
 		ray_base_x[i] = (i - WINDOW_WIDTH * 0.5) * ratio_hor;
 }
 
-#include <stdio.h>
-
 int	setup_mlx_context(t_cube *cube)
 {
 	cube->mlx = mlx_init();
@@ -143,7 +141,6 @@ int	setup_mlx_context(t_cube *cube)
 		return (1);
 	cube->fov = (FOV * PI / 180);
 	cube->dist_proj = (NB_CASES * 0.5) / tan(cube->fov * 0.5);
-	printf("dist_proj [%f]\n", cube->dist_proj);
 	set_base_x(cube->fov, cube->ray_base_x);
 	return (0);
 }
