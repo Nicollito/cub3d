@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:32 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/06 15:59:48 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/10 14:11:43 by nimadela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 #include "algo.h"
-#include "mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include "libft.h"
 #include <sys/time.h>
 #include <stdio.h>
