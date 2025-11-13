@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:45 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/06 11:12:50 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:42:59 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include "mlx.h"
 
-void	move_character(t_cube *cube, double dx, double dy)
+static void	move_character(t_cube *cube, double dx, double dy)
 {
 	double	new_x;
 	double	new_y;
@@ -29,7 +29,7 @@ void	move_character(t_cube *cube, double dx, double dy)
 		cube->character.y = new_y;
 }
 
-void	move(t_cube *cube, int forward, double move_speed)
+static void	move(t_cube *cube, int forward, double move_speed)
 {
 	double	dx;
 	double	dy;
@@ -39,7 +39,7 @@ void	move(t_cube *cube, int forward, double move_speed)
 	move_character(cube, dx, dy);
 }
 
-void	strafe(t_cube *cube, int direction, double move_speed)
+static void	strafe(t_cube *cube, int direction, double move_speed)
 {
 	double	dx;
 	double	dy;

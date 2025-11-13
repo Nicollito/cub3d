@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:57:01 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:57:02 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:42:00 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*safe_gnl(t_cube *cube, int fd, int *error)
 	return (line);
 }
 
-void	validate_config_completeness(t_cube *cube, char *line)
+static void	validate_config_completeness(t_cube *cube, char *line)
 {
 	int	i;
 
@@ -59,7 +59,7 @@ int	check_extension(char *path, char *ext)
 	return (0);
 }
 
-void	parse_cub_file(t_cube *cube, char *file)
+static void	parse_cub_file(t_cube *cube, char *file)
 {
 	char	*line;
 	int		error;

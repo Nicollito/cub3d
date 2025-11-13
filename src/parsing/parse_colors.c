@@ -6,19 +6,12 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:51 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/06 16:01:31 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:40:25 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "cleanup.h"
-
-static void	rgb_error(char **color, char *line, char *tmp)
-{
-	free(line);
-	free_tab(color);
-	free(tmp);
-}
 
 static	int	parse_value(t_cube *cube, char **color, char *line, char *comp)
 {
@@ -47,7 +40,7 @@ static	int	parse_value(t_cube *cube, char **color, char *line, char *comp)
 	return (value);
 }
 
-void	parse_rgb(t_cube *cube, char **color, t_color_type type, char *line)
+static void	parse_rgb(t_cube *cube, char **color, t_color_type type, char *line)
 {
 	int	i;
 
@@ -61,7 +54,7 @@ void	parse_rgb(t_cube *cube, char **color, t_color_type type, char *line)
 	free_tab(color);
 }
 
-void	count_tokens(t_cube *cube, char **color, char *line)
+static void	count_tokens(t_cube *cube, char **color, char *line)
 {
 	int	i;
 
@@ -75,15 +68,29 @@ void	count_tokens(t_cube *cube, char **color, char *line)
 	}
 }
 
+static char	*trim_line(t_cube *cube, char *line)
+{
+	char	*line_trimmed;
+
+	line_trimmed = ft_strtrim(line, " \t");
+	if (!line_trimmed)
+	{
+		free(line);
+		ft_error(cube, "ft_strtrim failed");
+	}
+	return (line_trimmed);
+}
+
 void	parse_color_line(t_cube *cube, char *line)
 {
 	char			**color;
 	t_color_type	type;
+	char			*line_trimmed;
 
-	while (*line && *line == ' ')
-		line++;
-	type = identify_color_type(line);
-	color = ft_split(line + 2, ',');
+	line_trimmed = trim_line(cube, line);
+	type = identify_color_type(line_trimmed);
+	color = ft_split(line_trimmed + 2, ',');
+	free(line_trimmed);
 	if (!color)
 	{
 		free(line);

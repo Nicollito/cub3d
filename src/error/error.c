@@ -6,25 +6,27 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:58 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/30 09:34:21 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:31:21 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "parsing.h"
 #include <string.h>
 #include <errno.h>
+#include "libft.h"
+#include "parsing.h"
+#include "cleanup.h"
+
+void	rgb_error(char **color, char *line, char *tmp)
+{
+	free(line);
+	free_tab(color);
+	free(tmp);
+}
 
 void	print_error(char *msg)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(msg, 2);
-}
-
-void	ft_perror(void)
-{
-	ft_putendl_fd("Error", 2);
-	strerror(errno);
 }
 
 void	ft_error(t_cube *cube, char *msg)

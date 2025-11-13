@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:27 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/06 16:04:05 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:43:37 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@
 
 /* ----- PARSING.C ----- */
 void			free_cube(t_cube *cube);
-void			validate_config_completeness(t_cube *cube, char *line);
 int				check_extension(char *path, char *ext);
-void			parse_cub_file(t_cube *cube, char *file);
 t_cube			*parse_cub(char **av);
 
 /* ----- PARSE_COLORS.C ----- */
 t_color_type	identify_color_type(char *line);
-void			count_tokens(t_cube *cube, char **color, char *line);
 int				is_numeric_string(char *str);
-void			parse_rgb(t_cube *cube, char **color, t_color_type type,
-					char *line);
 void			parse_color_line(t_cube *cube, char *line);
 
 /* ----- PARSE_CONFIG.C ----- */
@@ -47,7 +42,6 @@ t_list			*read_map_lines(t_cube *cube, int fd, char *line);
 void			fill_map(t_cube *cube, t_list *tmp_map);
 
 /* ----- PARSE_TEXTURES.C ----- */
-t_texture_type	identify_texture_type(t_cube *cube, char *line);
 void			parse_texture(t_cube *cube, char *line);
 
 /* ----- UTILS_PARSING.C ----- */
@@ -58,7 +52,6 @@ int				is_empty_line(char *line);
 int				is_map_line(char *line);
 
 /* ----- VALIDATE_MAP.C ----- */
-double			get_orientation_angle( char c);
 void			validate_map_content_closure(t_cube *cube);
 void			fill_character_position(t_cube *cube, char **map, int i, int j);
 int				validate_map_content(t_cube *cube, char **map);

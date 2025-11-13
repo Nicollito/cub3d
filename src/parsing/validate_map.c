@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nimadela <nimadela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:57:10 by nimadela          #+#    #+#             */
-/*   Updated: 2025/10/29 14:57:11 by nimadela         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:42:26 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-double	get_orientation_angle( char c)
+static double	get_orientation_angle( char c)
 {
 	if (c == 'E')
 		return (PI * 0.5);

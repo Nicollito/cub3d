@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 14:19:50 by lserodon          #+#    #+#             */
-/*   Updated: 2025/11/06 15:57:52 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:35:32 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 
 int	init_minimap(t_cube *cube, t_image *image)
 {
-	int	ratio;
-
-	ratio = WINDOW_WIDTH * 0.15;
-	image->width = ratio;
-	image->height = ratio;
+	image->width = 300;
+	image->height = 300;
 	image->mlx_ptr = mlx_new_image(cube->mlx, image->width,
 			image->height);
 	if (!image->mlx_ptr)

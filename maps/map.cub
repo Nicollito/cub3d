@@ -1,12 +1,12 @@
-C 163, 163, 163
-       F 100,100,100
+C 163,163,163
+F 100,100,100
 
-                             SO                                        texture_xpm/texture-_2_.xpm
-EA texture_xpm/texture-_1_.xpm                      
-NO texture_xpm/texture-_5_.xpm
-WE texture_xpm/texture-_4_.xpm
+SO texture_xpm/texture-_so_.xpm
+EA texture_xpm/texture-_ea_.xpm                      
+NO texture_xpm/texture-_no_.xpm
+WE texture_xpm/texture-_we_.xpm
 
- 11111111111111
+111111111111111
 100000000000001
 100001000111111
 10000000000001

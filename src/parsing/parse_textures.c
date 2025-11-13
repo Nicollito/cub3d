@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:58 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/06 16:00:48 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:41:30 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	textures_error(t_cube *cube, char *line, char *path, char *msg)
 	ft_error(cube, msg);
 }
 
-t_texture_type	identify_texture_type(t_cube *cube, char *line)
+static t_texture_type	identify_texture_type(t_cube *cube, char *line)
 {
 	char			*tmp;
 	t_texture_type	res;
@@ -43,16 +43,30 @@ t_texture_type	identify_texture_type(t_cube *cube, char *line)
 	return (res);
 }
 
+static char	*trim_line(t_cube *cube, char *line)
+{
+	char	*line_trimmed;
+
+	line_trimmed = ft_strtrim(line, " \t");
+	if (!line_trimmed)
+	{
+		free(line);
+		ft_error(cube, "ft_strtrim failed");
+	}
+	return (line_trimmed);
+}
+
 void	parse_texture(t_cube *cube, char *line)
 {
 	t_texture_type	type;
 	char			*path;
 	int				fd;
+	char			*line_trimmed;
 
-	while (*line && *line == ' ')
-		line++;
-	type = identify_texture_type(cube, line);
-	path = ft_strtrim(line + 2, " \n");
+	line_trimmed = trim_line(cube, line);
+	type = identify_texture_type(cube, line_trimmed);
+	path = ft_strtrim(line_trimmed + 2, " \n");
+	free(line_trimmed);
 	if (!path)
 	{
 		free(line);
