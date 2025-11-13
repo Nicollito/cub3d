@@ -1,10 +1,10 @@
-C 163, 163, 163
-       F 100,100,100
+C 0, 0, 0
+F 100,100,100
 
-                             SO                                        texture_xpm/texture-_2_.xpm
-EA texture_xpm/texture-_1_.xpm                      
-NO texture_xpm/texture-_5_.xpm
-WE texture_xpm/texture-_4_.xpm
+SO texture_xpm/south.xpm
+EA texture_xpm/east.xpm                      
+NO texture_xpm/north.xpm
+WE texture_xpm/west.xpm
 
  11111111111111
 100000000000001

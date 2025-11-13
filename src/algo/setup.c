@@ -72,16 +72,16 @@ static void	set_texture_orientation(t_wall *wall, t_calc *data)
 	if (wall->side == VERTICAL)
 	{
 		if (data->ray_dir_y < 0)
-			wall->texture = TEXT_NO;
-		else
 			wall->texture = TEXT_SO;
+		else
+			wall->texture = TEXT_NO;
 	}
 	else if (wall->side == HORIZONTAL)
 	{
 		if (data->ray_dir_x < 0)
-			wall->texture = TEXT_WE;
-		else
 			wall->texture = TEXT_EA;
+		else
+			wall->texture = TEXT_WE;
 	}
 }
 

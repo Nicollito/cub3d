@@ -28,7 +28,7 @@ static void	color_pixel(t_color color, t_img_data image, int offset)
 {
 	int	rgba;
 
-	if (image.endian == 1)
+	if (image.endian == 0)
 		rgba = (color.rgb[0] << 16) | (color.rgb[1] << 8) | color.rgb[2];
 	else
 		rgba = (color.rgb[2] << 16) | (color.rgb[1] << 8) | color.rgb[0];
@@ -61,26 +61,31 @@ static double	texture_start_y(t_wall wall, double *y_step, int text_height)
 }
 
 /**
- * @brief Calculates the X coordinate on a texture for a wall slice.
+ * @brief Calculates the X coordinate on a wall texture for a given ray hit.
  *
  * This function computes which column of the texture image corresponds to the
- * point where a ray intersects a wall. The calculation depends on whether the
- * wall side is horizontal or vertical.
+ * exact point where a ray intersects a wall. The calculation depends on the
+ * texture type (North, South, East, West) to handle orientation and mirroring.
  *
  * @param data The calculation data containing the ray intersection coordinates.
- * @param side The side of the wall hit (HORIZONTAL or VERTICAL).
+ * @param texture The texture type of the wall (TEXT_NO, TEXT_SO, TEXT_EA, TEXT_WE).
  * @param text_width The width of the texture image in pixels.
- * @return The X coordinate (column) on the texture for the pixel to render.
+ * @return The X coordinate (column) on the texture to use for rendering.
  */
-static int	texture_coord_x(t_calc data, t_side side, int text_width)
+static int	texture_coord_x(t_calc data, t_texture_type texture, int text_width)
 {
 	int		x_coord;
 	double	wall_x;
 
-	if (side == HORIZONTAL)
+	wall_x = 0;
+	if (texture == TEXT_WE)
 		wall_x = data.ray_y - (long)data.ray_y;
-	else
+	else if (texture == TEXT_SO)
 		wall_x = data.ray_x - (long)data.ray_x;
+	else if (texture == TEXT_EA)
+		wall_x = (data.ray_y - (long)data.ray_y - 1) * -1;
+	else if (texture == TEXT_NO)
+		wall_x = (data.ray_x - (long)data.ray_x - 1) * -1;
 	x_coord = (int)(wall_x * text_width);
 	return (x_coord);
 }
@@ -93,7 +98,7 @@ void	write_column(t_sprites sprite, t_wall wall, t_calc data,
 
 	wall.line = -1;
 	text_wall = sprite.text_wall[wall.texture];
-	wall.text_x = texture_coord_x(data, wall.side, text_wall.width);
+	wall.text_x = texture_coord_x(data, wall.texture, text_wall.width);
 	wall.text_y = texture_start_y(wall, &wall.text_step, text_wall.height);
 	while (++wall.line < WINDOW_HEIGHT)
 	{

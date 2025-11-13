@@ -4,7 +4,7 @@ MAKEFLAGS += --no-print-directory
 
 NAME = cub3D
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -g3
+CFLAGS = -Werror -Wextra -Wall
 CFLAGS += 										\
 					-Iminilibx-linux			\
 					-Ilibft						\
@@ -25,7 +25,12 @@ endif
 LIB = libft/libft.a
 MLX = minilibx-linux/libmlx.a
 #------------------------------------DEBUG------------------------------------#
-CFLAGS_DEBUG = -g3 -Wuninitialized -fno-inline -O0
+ifeq ($(DEBUG_MODE), debug)
+CFLAGS += -g3 -Wuninitialized -fno-inline -O0
+ifeq ($(MAKELEVEL),1)
+$(info 🎯 Compiling for debug: $(CFLAGS))
+endif
+endif
 DEBUG_MODE =
 #-------------------------------------SRC-------------------------------------#
 SRC 			= 										\
@@ -150,9 +155,8 @@ $(MLX) :
 -include $(DEPS)
 
 debug :
-	@echo "🎯 Compiling for debug: $(CFLAGS_DEBUG)"
-	@$(MAKE) debug -C libft
-	@$(MAKE) re CFLAGS="$(CFLAGS) $(CFLAGS_DEBUG)" DEBUG_MODE=debug
+	@$(MAKE) fclean
+	@$(MAKE) DEBUG_MODE=debug
 
 clean :
 	@rm -rf $(OBJ_DIR) $(DEPS_DIR)
