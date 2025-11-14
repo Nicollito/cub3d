@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"cube.h": "c",
-		"init.h": "c",
-		"minimap.h": "c",
-		"parsing.h": "c"
-	}
-}
