@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:36 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/07 10:19:00 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:35:03 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static double	texture_start_y(t_wall wall, double *y_step, int text_height)
  * texture type (North, South, East, West) to handle orientation and mirroring.
  *
  * @param data The calculation data containing the ray intersection coordinates.
- * @param texture The texture type of the wall (TEXT_NO, TEXT_SO, TEXT_EA, TEXT_WE).
+ * @param texture The texture type of the wall 
+ * (TEXT_NO, TEXT_SO, TEXT_EA, TEXT_WE).
  * @param text_width The width of the texture image in pixels.
  * @return The X coordinate (column) on the texture to use for rendering.
  */

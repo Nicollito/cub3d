@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:55:32 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/13 11:41:34 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:37:53 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
  *
  * @return 1 if a second has passed, 0 otherwise.
  */
-static int second_past(void)
+static int	second_past(void)
 {
-	static int last_second = 0;
-	struct timeval tv;
+	static int		last_second = 0;
+	struct timeval	tv;
 
 	gettimeofday(&tv, (void *)0);
 	if (tv.tv_sec != last_second)
@@ -48,9 +48,9 @@ static int second_past(void)
  * detected, prints the number of frames rendered in the previous second to
  * the console. The counter is reset afterward.
  */
-static void print_fps(void)
+static void	print_fps(void)
 {
-	static int frames = 0;
+	static int	frames = 0;
 
 	frames++;
 	if (second_past())
@@ -70,7 +70,7 @@ static void print_fps(void)
  * @param cube Pointer to the main cube structure.
  * @param algo Pointer to the algorithm structure to initialize.
  */
-static void set_algo(t_cube *cube, t_algo *algo)
+static void	set_algo(t_cube *cube, t_algo *algo)
 {
 	algo->character = cube->character;
 	algo->ray_base_x = cube->ray_base_x;
@@ -93,10 +93,10 @@ static void set_algo(t_cube *cube, t_algo *algo)
  * @param algo Structure holding the map, character data, projection distance,
  * and precomputed ray base offsets.
  */
-static void raycasting(t_color *color, t_sprites sprites, t_algo algo)
+static void	raycasting(t_color *color, t_sprites sprites, t_algo algo)
 {
-	t_wall wall;
-	t_calc data;
+	t_wall	wall;
+	t_calc	data;
 
 	ft_memset(&wall, 0, sizeof(t_wall));
 	ft_memset(&data, 0, sizeof(t_calc));
@@ -108,20 +108,20 @@ static void raycasting(t_color *color, t_sprites sprites, t_algo algo)
 	}
 }
 
-int render_frame(t_cube *cube)
+int	render_frame(t_cube *cube)
 {
-	t_algo algo;
+	t_algo	algo;
 
 	set_algo(cube, &algo);
 	update_moves(cube);
 	draw_minimap(cube, &cube->minimap);
 	raycasting(cube->config.color, cube->sprites, algo);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
-							cube->sprites.frame.mlx_ptr, 0, 0);
+		cube->sprites.frame.mlx_ptr, 0, 0);
 	mlx_put_image_to_window(cube->mlx, cube->mlx_window,
-							cube->minimap.image.mlx_ptr,
-							(WINDOW_WIDTH - cube->minimap.image.width - 30),
-							(WINDOW_HEIGHT - cube->minimap.image.height - 30));
+		cube->minimap.image.mlx_ptr,
+		(WINDOW_WIDTH - cube->minimap.image.width - 30),
+		(WINDOW_HEIGHT - cube->minimap.image.height - 30));
 	print_fps();
 	return (0);
 }
