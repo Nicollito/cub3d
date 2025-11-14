@@ -6,7 +6,7 @@
 /*   By: lserodon <lserodon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:51 by nimadela          #+#    #+#             */
-/*   Updated: 2025/11/13 13:40:25 by lserodon         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:28:08 by lserodon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	parse_color_line(t_cube *cube, char *line)
 
 	line_trimmed = trim_line(cube, line);
 	type = identify_color_type(line_trimmed);
-	color = ft_split(line_trimmed + 2, ',');
+	color = ft_split(line_trimmed + 1, ',');
 	free(line_trimmed);
 	if (!color)
 	{
